@@ -5,7 +5,7 @@ from discord.ext import commands
 
 
 class TicketsCog(commands.Cog):
-    def __init__(self, bot):
+    async def __init__(self, bot):
         self.bot = bot
         self.mention_message = '<@&991219359731163187> <@&989892564691873793> <@&1009021230080348190> <@&989891381575159870>'
         self.guild = bot.get_guild(837941760193724426)
@@ -34,7 +34,7 @@ class TicketsCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        print(self.bot.get_guild(837941760193724426))
+        print(self.bot.get_guild(837941760193724426), self.mention_message)
     
 
 def setup(bot):
