@@ -32,7 +32,10 @@ class TicketsCog(commands.Cog):
     async def test(self, ctx):
         await ctx.error(description = 'aa')
     
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(self.bot.get_guild(837941760193724426))
+    
 
 def setup(bot):
-    print(bot.get_guild(837941760193724426))
     bot.add_cog(TicketsCog(bot))
