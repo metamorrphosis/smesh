@@ -1,7 +1,7 @@
 import discord
 from utils import database
 from discord.ext import commands
-# <:asm_stormy_curator:1001817272240844911>
+# <:asm_stormy_curator:1001817272240844911> 
 
 
 class TicketsCog(commands.Cog):
