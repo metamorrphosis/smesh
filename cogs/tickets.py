@@ -7,8 +7,6 @@ from discord.ext import commands
 class TicketsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print(self.bot)
-        print(bot.get_guild(837941760193724426))    
         self.mention_message = '<@&991219359731163187> <@&989892564691873793> <@&1009021230080348190> <@&989891381575159870>'
         self.guild = bot.get_guild(837941760193724426)
         # self.staff_role = self.guild.get_role(991219359731163187)
@@ -25,7 +23,6 @@ class TicketsCog(commands.Cog):
             description = 'Для открытия тикета используйте кнопку ниже',
             color = 0xbffed9
         )
-        embticket.set_footer(text = 'Smesh', icon_url = self.bot.user.avatar.url)
         await ctx.message.delete()
         await ctx.send(embed = embticket)
     
@@ -37,4 +34,5 @@ class TicketsCog(commands.Cog):
     
 
 def setup(bot):
+    print(bot.get_guild(837941760193724426))
     bot.add_cog(TicketsCog(bot))
