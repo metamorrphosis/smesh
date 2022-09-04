@@ -13,7 +13,7 @@ class MyContext(commands.Context):
             description = description,
             fields = fields
         )
-        emberror.set_footer(text = message.author, icon_url = message.author.display_avatar.url)
+        emberror.set_footer(text = self.author, icon_url = self.author.display_avatar.url)
         await self.reply(embed = emberror)
 
 
@@ -21,7 +21,6 @@ class MyBot(commands.Bot):
     async def get_context(self, message: discord.Message, *, cls = MyContext):
         return await super().get_context(message, cls = cls)
    
-
 bot_intents = discord.Intents.all()
 
 my_bot = MyBot(
