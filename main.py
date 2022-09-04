@@ -13,8 +13,7 @@ class MyContext(commands.Context):
             fields = fields
         )
         emberror.set_footer(text = message.author, icon_url = message.author.display_avatar.url)
-        try:
-            await self.reply(embed = emberror)
+        await self.reply(embed = emberror)
 
 
 class MyBot(commands.Bot):
