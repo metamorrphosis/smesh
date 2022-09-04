@@ -11,10 +11,10 @@ class TicketsCog(commands.Cog):
         print(bot.get_guild(837941760193724426))    
         self.mention_message = '<@&991219359731163187> <@&989892564691873793> <@&1009021230080348190> <@&989891381575159870>'
         self.guild = bot.get_guild(837941760193724426)
-        self.staff_role = self.guild.get_role(991219359731163187)
-        self.helper_role = self.guild.get_role(989892564691873793)
-        self.support_role = self.guild.get_role(1009021230080348190)
-        self.moder_role = self.guild.get_role(989891381575159870)
+        # self.staff_role = self.guild.get_role(991219359731163187)
+        # self.helper_role = self.guild.get_role(989892564691873793)
+        # self.support_role = self.guild.get_role(1009021230080348190)
+        #self.moder_role = self.guild.get_role(989891381575159870)
     
     @commands.command()
     @commands.guild_only()
