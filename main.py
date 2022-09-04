@@ -19,7 +19,7 @@ my_bot = commands.Bot(
 my_bot.remove_command('help')
 
 for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
+    if filename.endswith('.py') and filename != 'utils.py':
         my_bot.load_extension(f'cogs.{filename[:-3]}')
         print(f'"{filename[:-3]}" загружен')
 
