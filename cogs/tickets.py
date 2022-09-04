@@ -8,7 +8,7 @@ class TicketsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         print(self.bot)
-        print(await self.bot.fetch_guild(837941760193724426))    
+        print(bot.fetch_guild(837941760193724426))    
         self.mention_message = '<@&991219359731163187> <@&989892564691873793> <@&1009021230080348190> <@&989891381575159870>'
         self.guild = self.bot.get_guild(837941760193724426)
         self.staff_role = self.guild.get_role(991219359731163187)
