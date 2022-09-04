@@ -3,7 +3,7 @@ import config
 
 class DataBase:
     def __init__(self):
-        self.cluster = pymongo.MongoClient("mongodb+srv://bebroid:G4OkpALTJyAe2rlG@smeshcluster.hmfuskg.mongodb.net/?retryWrites=true&w=majority")
+        self.cluster = pymongo.MongoClient(config.mongodb_link)
     
     def insert_ticket(self, ticket_id, author, who_claimed, open_time):
         new_ticket = {}
