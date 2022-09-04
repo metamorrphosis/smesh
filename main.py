@@ -9,6 +9,7 @@ class MyContext(commands.Context):
     async def error(self, *, description = None, fields = None):
         emberror = discord.Embed(
             title = '❌ Ошибка',
+            color = 0xff0000,
             description = description,
             fields = fields
         )
