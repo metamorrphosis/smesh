@@ -2,6 +2,7 @@ import os
 import json
 import config
 import discord
+from datetime import datetime
 from discord.ext import commands
 
 
@@ -10,6 +11,7 @@ class MyContext(commands.Context):
         emberror = discord.Embed(
             title = '❌ Ошибка',
             color = 0xff0000,
+            timestamp = datetime.now(),
             description = description,
             fields = fields
         )
