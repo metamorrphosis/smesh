@@ -9,12 +9,12 @@ class MyContext(commands.Context):
     async def error(self, *, description = None, fields = None):
         emberror = discord.Embed(
             title = '❌ Ошибка',
-            description = description
+            description = description,
             fields = fields
         )
         emberror.set_footer(text = message.author, icon_url = message.author.display_avatar.url)
         try:
-            await self.message.reply(embed = emberror)
+            await self.reply(embed = emberror)
 
 
 class MyBot(commands.Bot):
