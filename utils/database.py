@@ -1,5 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 import pymongo
+import asyncio
 import config
 
 class DataBase:
