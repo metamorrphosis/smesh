@@ -1,10 +1,12 @@
 import discord
 from utils import tickets_db, my_roles
+from datetime import datetime
 from discord.ext import commands
 
 class StartTicketView(discord.ui.View):
     def __init__(self):
         self.db = tickets_db.TicketsDB()
+        self.mention_message = '<@&991219359731163187> <@&989892564691873793> <@&1009021230080348190> <@&989891381575159870>'
         super().__init__(timeout = None)
     
     @discord.ui.button(
@@ -20,6 +22,28 @@ class StartTicketView(discord.ui.View):
             if i["author"] == interaction.user.id:
                 return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
         
+        ticket_category = interaction.guild.get_channel(1004839366763495464)
+
+        ticket_overwrites = {
+            interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            interaction.user: discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True),
+        }
+
+        staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
+
+        #for i in staff_roles:
+            # ticket_overwrites[i] = discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True)
+
+        ticket_id = self.db.insert_ticket(
+            author = interaction.user,
+            open_time = int(datetime.timestamp(datetime.now()))
+        )
+
+        ticket_channel = await ticket_category.create_text_channel(name = f'тикет-{ticket_id}', overwrites = ticket_overwrites)
+        mention = await ticket_channel.send(self.mention_message)
+        await mention.delete()
+        await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
+        
         
 
 
@@ -27,7 +51,6 @@ class StartTicketView(discord.ui.View):
 class TicketsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.mention_message = '<@&991219359731163187> <@&989892564691873793> <@&1009021230080348190> <@&989891381575159870>'
     
     @commands.command()
     @commands.guild_only()
