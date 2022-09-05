@@ -1,5 +1,5 @@
 import discord
-from utils import database, roles
+from utils import database, my_roles
 from discord.ext import commands
 
 db = database.DataBase()
@@ -19,7 +19,7 @@ class StartTicketView(discord.ui.View):
             if i["author"] == interaction.user.id:
                 return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
         
-        
+
 
 
 class TicketsCog(commands.Cog):
