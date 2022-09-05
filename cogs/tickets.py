@@ -4,6 +4,7 @@ from discord.ext import commands
 
 class StartTicketView(discord.ui.View):
     def __init__(self):
+        self.db = database.DataBase()
         super().__init__(timeout = None)
     
     @discord.ui.button(
@@ -13,7 +14,7 @@ class StartTicketView(discord.ui.View):
         label = 'Открыть тикет'
     )
     async def callback(self, button, interaction):
-        for i in db.cluster["tickets"]["tickets_list"].find():
+        for i in self.db.cluster["tickets"]["tickets_list"].find():
             if i["author"] == interaction.user.id:
                 return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
         
