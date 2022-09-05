@@ -1,9 +1,8 @@
 from motor.motor_asyncio import AsyncIOMotorClient
-import pymongo
 import asyncio
 import config
 
-class DataBase:
+class TicketsDB:
     def __init__(self):
         self.cluster = AsyncIOMotorClient(config.mongodb_link)
     

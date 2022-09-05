@@ -1,10 +1,10 @@
 import discord
-from utils import database, my_roles
+from utils import tickets_db, my_roles
 from discord.ext import commands
 
 class StartTicketView(discord.ui.View):
     def __init__(self):
-        self.db = database.DataBase()
+        self.db = tickets_db.TicketsDB()
         super().__init__(timeout = None)
     
     @discord.ui.button(
@@ -19,7 +19,7 @@ class StartTicketView(discord.ui.View):
                 continue
             if i["author"] == interaction.user.id:
                 return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
-        return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
+        
         
 
 
