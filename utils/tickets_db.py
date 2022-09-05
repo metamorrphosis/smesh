@@ -8,7 +8,7 @@ class TicketsDB:
     
     async def insert_ticket(self, *, author, who_claimed = 0, open_time):
         await self.cluster["tickets"]["ticets_list"].update_one({"_id": 0}, {"$inc": {"new_ticket_id": 1}})
-        ticket_id = await self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})
+        ticket_id = self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})
         new_ticket = {}
         new_ticket["_id"] = ticket_id
         new_ticket["author"] = int(author.id)
@@ -21,7 +21,7 @@ class TicketsDB:
         return int(''.join(x for x in ticket_channel.name if x.isdigit()))
     
     async def new_claimed_member(self, member):
-        if await self.cluster["tickets"]["claimed_count"].find_one({"_id": member.id}) is None:
+        if self.cluster["tickets"]["claimed_count"].find_one({"_id": member.id}) is None:
             new_member = {}
             new_member["_id"] = member.id
             new_member["all_claimed"] = 0
@@ -33,7 +33,7 @@ class TicketsDB:
     
     async def get_claimed_data(self, member):
         await self.new_claimed_member(member)
-        return await self.cluster["tickets"]["claimed_count"].find_one({"id": member.id})
+        return self.cluster["tickets"]["claimed_count"].find_one({"id": member.id})
             
        
     async def claim_ticket(self, ticket_channel, who_claimed):
