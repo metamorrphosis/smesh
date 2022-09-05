@@ -6,15 +6,13 @@ class TicketsDB:
     def __init__(self):
         self.cluster = AsyncIOMotorClient(config.mongodb_link)
     
-    async def insert_ticket(self, *, author, who_claimed = 0, open_time):
+    async def insert_ticket(self, *, author, who_claimed = None, open_time):
         await self.cluster["tickets"]["ticets_list"].update_one({"_id": 0}, {"$inc": {"nmr": 1}})
-        ticket_id = await self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})
-        print(ticket_id)
-        # ["nmr"]
+        ticket_id = await self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})["nmr"]
         new_ticket = {}
         new_ticket["_id"] = ticket_id
         new_ticket["author"] = int(author.id)
-        new_ticket["who_claimed"] = int(who_claimed.id)
+        new_ticket["who_claimed"] = int(who_claimed.id) if who_claimed else 0
         new_ticket["open_time"] = int(open_time)
         await self.cluster["tickets"]["tickets_list"].insert_one(new_ticket)
         return ticket_id
