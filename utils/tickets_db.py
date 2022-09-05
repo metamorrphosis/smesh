@@ -8,7 +8,7 @@ class TicketsDB:
     
     async def insert_ticket(self, *, author, who_claimed = 0, open_time):
         await self.cluster["tickets"]["ticets_list"].update_one({"_id": 0}, {"$inc": {"new_ticket_id": 1}})
-        ticket_id = self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})
+        ticket_id = self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})["new_ticket_id"]
         new_ticket = {}
         new_ticket["_id"] = ticket_id
         new_ticket["author"] = int(author.id)
