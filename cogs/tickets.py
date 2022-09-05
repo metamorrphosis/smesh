@@ -1,7 +1,8 @@
 import discord
-from utils import database
+from utils import database, roles
 from discord.ext import commands
 
+db = database.DataBase()
 
 class StartTicketView(discord.ui.View):
     def __init__(self):
@@ -14,7 +15,11 @@ class StartTicketView(discord.ui.View):
         label = 'Открыть тикет'
     )
     async def callback(self, button, interaction):
-        pass
+        for i in await db.cluster["tickets"]["tickets_list"]:
+            if i["author"] == interaction.user.id:
+                return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
+        
+        
 
 
 class TicketsCog(commands.Cog):
@@ -43,11 +48,6 @@ class TicketsCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        self.smesh_guild = self.bot.get_guild(837941760193724426)
-        self.staff_role = self.smesh_guild.get_role(991219359731163187)
-        self.helper_role = self.smesh_guild.get_role(989892564691873793)
-        self.support_role = self.smesh_guild.get_role(1009021230080348190)
-        self.moder_role = self.smesh_guild.get_role(989891381575159870)
         self.bot.add_view(StartTicketView())
     
     
