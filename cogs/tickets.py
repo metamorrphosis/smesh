@@ -34,7 +34,7 @@ class StartTicketView(discord.ui.View):
         #for i in staff_roles:
             # ticket_overwrites[i] = discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True)
 
-        ticket_id = self.db.insert_ticket(
+        ticket_id = await self.db.insert_ticket(
             author = interaction.user,
             open_time = int(datetime.timestamp(datetime.now()))
         )
