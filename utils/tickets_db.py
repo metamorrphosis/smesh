@@ -7,7 +7,7 @@ class TicketsDB:
         self.cluster = AsyncIOMotorClient(config.mongodb_link)
     
     async def insert_ticket(self, *, author, who_claimed = None, open_time):
-        await self.cluster["tickets"]["ticets_list"].update_one({"_id": 0}, {"$inc": {"nmr": 1}})
+        await self.cluster["tickets"]["tickets_list"].update_one({"_id": 0}, {"$inc": {"nmr": 1}})
         ticket_id = await self.cluster["tickets"]["tickets_list"].find_one({"_id": 0})
         ticket_id = ticket_id["nmr"]
         new_ticket = {}
