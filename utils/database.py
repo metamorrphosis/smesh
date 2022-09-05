@@ -5,7 +5,7 @@ import config
 
 class DataBase:
     def __init__(self):
-        self.cluster = AsyncIOMotorClient(pymongoconfig.mongodb_link)
+        self.cluster = AsyncIOMotorClient(config.mongodb_link)
     
     async def insert_ticket(self, author, who_claimed, open_time):
         await self.cluster["tickets"]["ticets_list"].update_one({"_id": 0}, {"$inc": {"new_ticket_id": 1}})
