@@ -14,6 +14,9 @@ class StartTicketView(discord.ui.View):
         label = 'Открыть тикет'
     )
     async def callback(self, button, interaction):
+        print(self.db)
+        print(self.db.tickets)
+        print(self.db.tickets.tickets_list)
         for i in self.db.cluster.tickets.tickets_list.find():
             if i["author"] == interaction.user.id:
                 return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
