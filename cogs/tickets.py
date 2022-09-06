@@ -118,7 +118,7 @@ class TicketsCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         self.bot.add_view(StartTicketView())
-        self.bot.add_view(TicketView())
+        self.bot.add_view(OpenedTicketView())
     
     
 
