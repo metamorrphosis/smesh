@@ -24,7 +24,7 @@ class Roles:
             self.curator_role, 
             self.shield_role, 
             self.admin_role, 
-            self.greenheart_role, 
+            # self.greenheart_role, 
             self.clip_role, 
             self.transparent_role, 
             self.ufo_role
