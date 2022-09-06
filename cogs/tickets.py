@@ -13,7 +13,7 @@ class TicketView(discord.ui.View):
         emoji = discord.PartialEmoji.from_str('<:asm_stormy_member:1001811269239722005>'), 
         style = discord.ButtonStyle.green,
         custom_id = "claim_ticket",
-        label = 'Принять тикет'
+        label = 'Закрыть тикет'
     )
     async def callback(self, button, interaction):
         uroles = my_roles.Roles(interaction.guild)
@@ -22,6 +22,7 @@ class TicketView(discord.ui.View):
             member = interaction.user,
             roles_list = staff_roles
         )
+
         roles_mention = ', '.join(role.mention for role in staff_roles)
 
         if len(check_roles) == 0:
