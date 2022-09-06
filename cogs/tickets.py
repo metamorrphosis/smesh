@@ -48,6 +48,7 @@ class StartTicketView(discord.ui.View):
         )
         embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**', inline = False)
         await mention.delete()
+        await ticket_channel.send(embed = embticket)
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
         
         
