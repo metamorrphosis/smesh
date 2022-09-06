@@ -27,7 +27,13 @@ class OpenedTicketView(discord.ui.View):
         roles_mention = ', '.join(role.mention for role in staff_roles)
 
         if len(check_roles) == 0:
-            return await interaction.response.send_message(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention[2:]}', ephemeral = True)
+            return await interaction.response.send_message(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+
+        self.db.claim_ticket(
+            ticket_channel = interaction.channel,
+            who_claimed = interaction.user
+        )
+        await interaction.response.send_message(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
 
 
 
