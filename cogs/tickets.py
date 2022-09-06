@@ -13,8 +13,8 @@ class OpenedTicketView(discord.ui.View):
     @discord.ui.button(
         emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
         style = discord.ButtonStyle.green,
-        custom_id = "close_ticket",
-        label = 'Закрыть тикет'
+        custom_id = "claim_ticket",
+        label = 'Принять тикет'
     )
     async def callback(self, button, interaction):
         uroles = my_roles.Roles(interaction.guild)
