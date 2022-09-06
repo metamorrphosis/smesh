@@ -22,7 +22,7 @@ class TicketsDB:
         return int(''.join(x for x in ticket_channel.name if x.isdigit()))
     
     async def new_claimed_member(self, member):
-        if self.cluster["tickets"]["claimed_count"].find_one({"_id": member.id}) is None:
+        if await self.cluster["tickets"]["claimed_count"].find_one({"_id": member.id}) is None:
             new_member = {}
             new_member["_id"] = member.id
             new_member["all_claimed"] = 0
