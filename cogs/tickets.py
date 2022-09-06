@@ -42,11 +42,11 @@ class StartTicketView(discord.ui.View):
         ticket_channel = await ticket_category.create_text_channel(name = f'тикет-{ticket_id}', overwrites = ticket_overwrites)
         mention = await ticket_channel.send(self.mention_message)
         embticket = discord.Embed(
-            title = f'Тикет-{ticket_id}',
+            title = f'Тикеты | Smesh',
             description = f'**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**\n・Здравствуйте! Вы попали в свой тикет. Модерация поможет вам в кротчайшие сроки. Пока что можете написать цель создания тикета.',
             color = 0xbffed9
         )
-        embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**', inline = False)
+        embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**', inline = False)
         await mention.delete() 
         await ticket_channel.send(embed = embticket)
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
