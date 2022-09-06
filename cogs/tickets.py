@@ -13,7 +13,7 @@ class OpenedTicketView(discord.ui.View):
     @discord.ui.button(
         emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
         style = discord.ButtonStyle.green,
-        custom_id = "claim_ticket",
+        custom_id = "ticket_claim",
         label = 'Принять тикет'
     )
     async def callback(self, button, interaction):
