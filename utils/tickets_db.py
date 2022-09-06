@@ -27,7 +27,7 @@ class TicketsDB:
             new_member["_id"] = member.id
             new_member["all_claimed"] = 0
             new_member["temp_claimed"] = 0
-            await self.cluster["tickets"]["claimed_count"].insert_one(new_claimed_member)
+            await self.cluster["tickets"]["claimed_count"].insert_one(new_member)
             return True
         else:
             return False
