@@ -3,6 +3,42 @@ from utils import tickets_db, my_roles
 from datetime import datetime
 from discord.ext import commands
 
+
+class TicketView(discord.ui.View):
+    def __init__(self):
+        self.db = tickets_db.TicketsDB()
+        super().__init__(timeout = None)
+    
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_member:1001811269239722005>'), 
+        style = discord.ButtonStyle.green,
+        custom_id = "claim_ticket",
+        label = 'Принять тикет'
+    )
+    async def callback(self, button, interaction):
+        uroles = my_roles.Roles(interaction.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = interaction.user,
+            roles_list = staff_roles
+        )
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await interaction.response.send_message(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention[2:]}', ephemeral = True)
+    
+
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
+        style = discord.ButtonStyle.green,
+        custom_id = "close_ticket",
+        label = 'Закрыть тикет'
+    )
+    async def callback(self, button, interaction):
+        pass
+
+
+
 class StartTicketView(discord.ui.View):
     def __init__(self):
         self.db = tickets_db.TicketsDB()

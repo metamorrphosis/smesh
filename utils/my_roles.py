@@ -31,5 +31,5 @@ class Roles:
         ]
         return staff_roles_list
     
-    def roles_check(self, member, roles_list):
+    def roles_check(self, *, member, roles_list):
         return [x for x in member.roles if x in roles_list]   
