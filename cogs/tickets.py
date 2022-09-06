@@ -29,7 +29,7 @@ class OpenedTicketView(discord.ui.View):
         if len(check_roles) == 0:
             return await interaction.response.send_message(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        self.db.claim_ticket(
+        await self.db.claim_ticket(
             ticket_channel = interaction.channel,
             who_claimed = interaction.user
         )
