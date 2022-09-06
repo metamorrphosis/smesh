@@ -9,10 +9,11 @@ class OpenedTicketView(discord.ui.View):
         self.db = tickets_db.TicketsDB()
         super().__init__(timeout = None)
     
+
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_member:1001811269239722005>'), 
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
         style = discord.ButtonStyle.green,
-        custom_id = "claim_ticket",
+        custom_id = "close_ticket",
         label = 'Закрыть тикет'
     )
     async def callback(self, button, interaction):
@@ -27,16 +28,6 @@ class OpenedTicketView(discord.ui.View):
 
         if len(check_roles) == 0:
             return await interaction.response.send_message(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention[2:]}', ephemeral = True)
-    
-
-    @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
-        style = discord.ButtonStyle.green,
-        custom_id = "close_ticket",
-        label = 'Закрыть тикет'
-    )
-    async def callback(self, button, interaction):
-        pass
 
 
 
