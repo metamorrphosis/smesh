@@ -119,7 +119,7 @@ class TicketsCog(commands.Cog):
     async def on_ready(self):
         self.bot.add_view(StartTicketView())
         self.bot.add_view(OpenedTicketView())
-        print(OpenedTicketView().items)
+        print(OpenedTicketView().children)
     
 
 def setup(bot):
