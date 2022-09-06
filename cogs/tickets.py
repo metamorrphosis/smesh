@@ -4,7 +4,7 @@ from datetime import datetime
 from discord.ext import commands
 
 
-class TicketView(discord.ui.View):
+class OpenedTicketView(discord.ui.View):
     def __init__(self):
         self.db = tickets_db.TicketsDB()
         super().__init__(timeout = None)
@@ -85,7 +85,7 @@ class StartTicketView(discord.ui.View):
         )
         embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**', inline = False)
         await mention.delete() 
-        await ticket_channel.send(embed = embticket, view = TicketView())
+        await ticket_channel.send(embed = embticket, view = OpenedTicketView())
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
         
         
