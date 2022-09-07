@@ -35,6 +35,29 @@ class OpenedTicketView(discord.ui.View):
         )
         await interaction.response.send_message(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
 
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
+        style = discord.ButtonStyle.green,
+        custom_id = "ticket_close",
+        label = 'Закрыть тикет'
+    )
+    async def callback(self, button, interaction):
+        uroles = my_roles.Roles(interaction.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = interaction.user,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await interaction.response.send_message(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+
+        await self.db.delete_ticket(
+            ticket_channel = interaction.channel,
+            closed_by = interaction.user
+        )    
 
 
 class StartTicketView(discord.ui.View):

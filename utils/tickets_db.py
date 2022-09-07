@@ -1,4 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorClient
+from datetime import datetime
 import asyncio
 import config
 
@@ -17,6 +18,65 @@ class TicketsDB:
         new_ticket["open_time"] = int(open_time)
         await self.cluster["tickets"]["tickets_list"].insert_one(new_ticket)
         return ticket_id
+    
+    async def delete_ticket(self, *, ticket_channel, closed_by):
+        ticket_id = self.get_ticket_id(ticket_channel.name)
+        guild = ticket_channel.guild
+        ticket_db = await self.cluster["tickets"]["tickets_list"].find_one({"_id": ticket_id})
+
+        author = guild.get_member(ticket_db["author"])
+
+        if author is None:
+            author_field = f'<@{ticket_db["author"]}> | `Данный участник покинул сервер` | `{ticket_db["author"]}`'
+        else:
+            author_field = f'{author.mention} | `{author}` | `{author.id}`'
+        
+
+        if ticket_db["who_claimed"] != 0:
+
+            who_claimed = guild.get_member(ticket_db["who_claimed"])
+            if who_claimed is None:
+                who_claimed_field = f'<@{ticket_db["who_claimed"]}> | `Данный участник покинул сервер` | `{ticket_db["who_claimed"]}`'
+            else:
+                who_claimed_field = f'{who_claimed.mention} | `{who_claimed}` | `{who_claimed.id}`'
+            
+        else:
+            who_claimed_field = 'Никто'
+
+        log_channel = guild.get_channel(1017140347983384739)
+        emblog = discord.Embed(
+            title = 'Тикет закрыт',
+            color = 0xff0000,
+            timestamp = datetime.now()
+        )
+        emblog.add_field(
+            name = 'Автор тикета',
+            value = author_field,
+            inline = False
+        )
+        emblog.add_field(
+            name = 'Кто принял тикет',
+            value = who_claimed_field,
+            inline = False
+        )
+        emblog.add_field(
+            name = 'Кто закрыл тикет',
+            value = f'{closed_by.mention} | `{closed_by}` | `{closed_by.id}`',
+            inline = False
+        )
+        emblog.add_field(
+            name = 'Дата открытия тикета',
+            value = f'<t:{ticket_db["open_time"]}:f>',
+            inline = False
+        )
+        emblog.add_field(
+            name = 'Айди тикета',
+            value = ticket_id,
+            inline = False
+        )
+        await ticket_channel.delete()
+        await self.cluster["tickets"]["ticket_list"].delete_one({"_id": ticket_id})
+        await log_channel.send(embed = emblog)
     
     def get_ticket_id(self, ticket_channel):
         return int(''.join(x for x in ticket_channel.name if x.isdigit()))
