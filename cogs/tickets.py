@@ -16,7 +16,7 @@ class OpenedTicketView(discord.ui.View):
         custom_id = "ticket_claim",
         label = 'Принять тикет'
     )
-    async def callback(self, button, interaction):
+    async def claim_callback(self, button, interaction):
         uroles = my_roles.Roles(interaction.guild)
         staff_roles = uroles.get_all_staff_roles()
         check_roles = uroles.roles_check(
@@ -41,7 +41,7 @@ class OpenedTicketView(discord.ui.View):
         custom_id = "ticket_close",
         label = 'Закрыть тикет'
     )
-    async def callback(self, button, interaction):
+    async def close_callback(self, button, interaction):
         uroles = my_roles.Roles(interaction.guild)
         staff_roles = uroles.get_all_staff_roles()
         check_roles = uroles.roles_check(
