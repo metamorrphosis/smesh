@@ -75,7 +75,7 @@ class TicketsDB:
             value = ticket_id,
             inline = False
         )
-        messages = await ticket_channel.history(limit=2000).flatten()[::-1]
+        messages = await ticket_channel.history(limit=2000).flatten()
         fp = f'{__file__[:19]}tickets/ticket-{ticket_id}-log.txt'
         with open(fp, 'w+') as f:
             for i in messages:
