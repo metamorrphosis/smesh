@@ -33,6 +33,8 @@ class OpenedTicketView(discord.ui.View):
             ticket_channel = interaction.channel,
             who_claimed = interaction.user
         )
+        self.children[0].disabled = True
+        await interaction.message.edit(view = self)
         await interaction.response.send_message(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
 
     @discord.ui.button(
