@@ -2,6 +2,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 import asyncio
 import config
+import discord
 
 class TicketsDB:
     def __init__(self):
