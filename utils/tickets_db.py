@@ -88,7 +88,7 @@ class TicketsDB:
             for message in messages:
                 if message.content:
                     dt = message.created_at + timedelta(hours = 2)
-                    dt = dt.strftime('%d.%m %H:%M:%-S МСК')
+                    dt = dt.strftime('%d.%m %H:%M:%S МСК')
                     f.write(f'[{message.author} | {message.author.id} — {dt}]\n{message.content}\n\n')
         
         await log_channel.send(embed = emblog, file = discord.File(fp = fp, filename = f'ticket-{ticket_id}-log.txt'))
