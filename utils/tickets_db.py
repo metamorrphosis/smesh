@@ -75,12 +75,15 @@ class TicketsDB:
             value = ticket_id,
             inline = False
         )
+
         messages = await ticket_channel.history(limit=2000).flatten()
 
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
+        print(fp)
+        print(__file__[:-19])
         with open(fp, 'w+') as f:
-            for i in messages:
-                if i.content:
+            for message in messages:
+                if message.content:
                     f.write(f'[{message.author} | {message.author.id} — {message.created_at}]\n{message.content}\n\n')
         
         await ticket_channel.delete(reason = 'Тикет закрыт')
