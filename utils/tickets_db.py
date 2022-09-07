@@ -84,7 +84,7 @@ class TicketsDB:
         messages = messages[::-1]
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
         with open(fp, 'w+') as f:
-            f.write(f'Тикет {ticket_id}\nАвтор тикета: {author_field[-22:-1]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + timedelta(hours = 2)} МСК\nЛог сообщений:\n\n\n——————— Тикет открыт ———————')
+            f.write(f'Айди тикета: {ticket_id}\nАвтор тикета: {ticket_db["author"]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + timedelta(hours = 2)} МСК\nЛог сообщений:\n\n——————— Тикет открыт ———————\n\n')
             for message in messages:
                 if message.content:
                     dt = message.created_at + timedelta(hours = 2)
