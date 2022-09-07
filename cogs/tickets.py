@@ -134,7 +134,7 @@ class TicketsCog(commands.Cog):
     @commands.guild_only()
     @commands.has_guild_permissions( administrator = True )
     async def test(self, ctx):
-        # await ctx.error(description = 'aa')
+        await ctx.error(description = 'aa')
     
     @commands.Cog.listener()
     async def on_ready(self):
