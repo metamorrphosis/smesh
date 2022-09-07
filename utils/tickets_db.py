@@ -76,7 +76,7 @@ class TicketsDB:
             inline = False
         )
         await ticket_channel.delete(reason = 'Тикет закрыт')
-        await self.cluster["tickets"]["ticket_list"].delete_one({"_id": ticket_id})
+        await self.cluster["tickets"]["tickets_list"].delete_one({"_id": ticket_id})
         await log_channel.send(embed = emblog)
     
     def get_ticket_id(self, ticket_channel):
