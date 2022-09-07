@@ -76,10 +76,11 @@ class TicketsDB:
             inline = False
         )
         
-        await ticket_channel.delete(reason = 'Тикет закрыт')
         await self.cluster["tickets"]["tickets_list"].delete_one({"_id": ticket_id})
         
         messages = await ticket_channel.history(limit=2000).flatten()
+        await ticket_channel.delete(reason = 'Тикет закрыт')
+        
         messages = messages[::-1]
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
         with open(fp, 'w+') as f:
