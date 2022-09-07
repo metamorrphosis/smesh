@@ -75,7 +75,10 @@ class TicketsDB:
             value = ticket_id,
             inline = False
         )
-
+        
+        await ticket_channel.delete(reason = 'Тикет закрыт')
+        await self.cluster["tickets"]["tickets_list"].delete_one({"_id": ticket_id})
+        
         messages = await ticket_channel.history(limit=2000).flatten()
         messages = messages[::-1]
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
@@ -83,12 +86,10 @@ class TicketsDB:
             f.write(f'Тикет {ticket_id} | Лог сообщений:\n\n\n')
             for message in messages:
                 if message.content:
-                    dt = datetime.datetime.now() + timedelta(minutes=30)
+                    dt = message.created_at + timedelta(hours = 2)
                     dt = dt.strftime('%d.%m %H:%M:%-S МСК')
                     f.write(f'[{message.author} | {message.author.id} — {dt}]\n{message.content}\n\n')
         
-        await ticket_channel.delete(reason = 'Тикет закрыт')
-        await self.cluster["tickets"]["tickets_list"].delete_one({"_id": ticket_id})
         await log_channel.send(embed = emblog, file = discord.File(fp = fp, filename = f'ticket-{ticket_id}-log.txt'))
     
     def get_ticket_id(self, ticket_channel):
