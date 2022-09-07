@@ -20,7 +20,7 @@ class TicketsDB:
         return ticket_id
     
     async def delete_ticket(self, *, ticket_channel, closed_by):
-        ticket_id = self.get_ticket_id(ticket_channel.name)
+        ticket_id = self.get_ticket_id(ticket_channel)
         guild = ticket_channel.guild
         ticket_db = await self.cluster["tickets"]["tickets_list"].find_one({"_id": ticket_id})
 
