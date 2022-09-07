@@ -84,10 +84,10 @@ class TicketsDB:
         messages = messages[::-1]
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
         with open(fp, 'w+') as f:
-            f.write(f'Айди тикета: {ticket_id}\nАвтор тикета: {ticket_db["author"]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + timedelta(hours = 2)} МСК\nЛог сообщений:\n\n——————— Тикет открыт ———————\n\n')
+            f.write(f'Айди тикета: {ticket_id}\nАвтор тикета: {ticket_db["author"]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + timedelta(hours = 3)} МСК\nЛог сообщений:\n\n——————— Тикет открыт ———————\n\n')
             for message in messages:
                 if message.content:
-                    dt = message.created_at + timedelta(hours = 2)
+                    dt = message.created_at + timedelta(hours = 3)
                     dt = dt.strftime('%d.%m %H:%M:%S МСК')
                     f.write(f'[{message.author} | {message.author.id} — {dt}]\n{message.content}\n\n')
             f.write('——————— Тикет закрыт ———————')
