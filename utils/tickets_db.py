@@ -84,13 +84,13 @@ class TicketsDB:
         messages = messages[::-1]
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
         with open(fp, 'w+') as f:
-            f.write(f'Тикет {ticket_id} | Лог сообщений:\n\n\n')
+            f.write(f'Тикет {ticket_id}\nАвтор тикета: {author_field[-22:-1]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + datetime.timedelta(hours = 2)} МСК\nЛог сообщений:\n\n\n——————— Тикет открыт ———————')
             for message in messages:
                 if message.content:
                     dt = message.created_at + timedelta(hours = 2)
                     dt = dt.strftime('%d.%m %H:%M:%S МСК')
                     f.write(f'[{message.author} | {message.author.id} — {dt}]\n{message.content}\n\n')
-        
+            f.write('——————— Тикет закрыт ———————')
         await log_channel.send(embed = emblog, file = discord.File(fp = fp, filename = f'ticket-{ticket_id}-log.txt'))
     
     def get_ticket_id(self, ticket_channel):
