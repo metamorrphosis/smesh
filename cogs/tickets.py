@@ -90,8 +90,8 @@ class StartTicketView(discord.ui.View):
 
         staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
 
-        #for i in staff_roles:
-            # ticket_overwrites[i] = discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True)
+        for i in staff_roles:
+            ticket_overwrites[i] = discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True)
 
         ticket_id = await self.db.insert_ticket(
             author = interaction.user,
@@ -107,7 +107,7 @@ class StartTicketView(discord.ui.View):
         )
         embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**', inline = False)
         await mention.delete() 
-        await ticket_channel.send(embed = embticket, view = OpenedTicketView())
+        await ticket_channel.send(f'{interaction.user.mention}', embed = embticket, view = OpenedTicketView())
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
         
         
