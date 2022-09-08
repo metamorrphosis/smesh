@@ -31,6 +31,7 @@ class OpenedTicketView(discord.ui.View):
 
         self.children[0].disabled = True
         await interaction.message.edit(view = self)
+        await interaction.channel.set_permissions(interaction.user, send_messages=True, read_messages=True)
 
         ticket_overwrites = {}
         staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
@@ -45,8 +46,6 @@ class OpenedTicketView(discord.ui.View):
         for i in staff_roles:
             await interaction.channel.set_permissions(i, send_messages = False)
             
-        await interaction.channel.set_permissions(interaction.user, send_messages = True)
-
     @discord.ui.button(
         emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
         style = discord.ButtonStyle.gray,
