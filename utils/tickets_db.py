@@ -102,7 +102,7 @@ class TicketsDB:
         messages = messages[::-1]
         fp = f'{__file__[:-19]}tickets/ticket-{ticket_id}-log.txt'
         with open(fp, 'w+') as f:
-            f.write(f'Айди тикета: {ticket_id}\nАвтор тикета: {ticket_db["author"]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + timedelta(hours = 3)} МСК\nЛог сообщений:\n\n——————— Тикет открыт ———————\n\n')
+            f.write(f'Айди тикета: {ticket_id}\nАвтор тикета: {ticket_db["author"]}\nДата открытия тикета: {datetime.fromtimestamp(ticket_db["open_time"]) + timedelta(hours = 3)} МСК\n\n\n——————— Тикет открыт ———————\n\n')
             for message in messages:
                 if message.content:
                     dt = message.created_at + timedelta(hours = 3)
@@ -135,4 +135,22 @@ class TicketsDB:
         await self.cluster["tickets"]["claimed_count"].update_one({"_id": who_claimed.id}, {"$inc": {"all_claimed": 1, "temp_claimed": 1}})
         ticket_id = self.get_ticket_id(ticket_channel)
         await self.cluster["tickets"]["tickets_list"].update_one({"_id": ticket_id}, {"$set": {"who_claimed": who_claimed.id}})
+        guild = ticket_channel.guild
+        log_channel = guild.get_channel(1017140347983384739)
+        emblog = discord.Embed(
+            title = 'Тикет принят',
+            color = 0xffee00,
+            timestamp = datetime.now()
+        )
+        emblog.add_field(
+            name = 'Кто принял тикет',
+            value = f'{who_claimed.mention} | `{who_claimed}` | `{who_claimed.id}`',
+            inline = False
+        )
+        emblog.add_field(
+            name = 'Айди тикета',
+            value = ticket_id,
+            inline = False
+        )
+        await log_channel.send(embed = emblog)
         return True
