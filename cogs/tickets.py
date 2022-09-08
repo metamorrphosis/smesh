@@ -32,6 +32,7 @@ class OpenedTicketView(discord.ui.View):
         self.children[0].disabled = True
         await interaction.message.edit(view = self)
 
+        ticket_overwrites = {}
         staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
 
         for i in staff_roles:
