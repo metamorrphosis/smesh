@@ -36,7 +36,7 @@ class OpenedTicketView(discord.ui.View):
         staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
 
         for i in staff_roles:
-            ticket_overwrites[i] = discord.PermissionOverwrite(send_messages=False)
+            await interaction.channel.set_permissions(i, send_messages = False)
 
         await self.db.claim_ticket(
             ticket_channel = interaction.channel,
