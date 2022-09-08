@@ -40,11 +40,12 @@ class OpenedTicketView(discord.ui.View):
             who_claimed = interaction.user
         )
 
-        await interaction.channel.set_permissions(interaction.user, send_messages = True)
         await interaction.response.send_message(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
 
         for i in staff_roles:
             await interaction.channel.set_permissions(i, send_messages = False)
+            
+        await interaction.channel.set_permissions(interaction.user, send_messages = True)
 
     @discord.ui.button(
         emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
