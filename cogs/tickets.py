@@ -117,6 +117,7 @@ class StartTicketView(discord.ui.View):
 class TicketsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.db = tickets_db.TicketsDB()
     
     @commands.command()
     @commands.guild_only()
@@ -130,6 +131,30 @@ class TicketsCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
+    @commands.command(aliases = ['с', 's', 'статистика'])
+    @commands.guild_only()
+    @commands.is_owner()
+    async def tickets_stat(self, ctx, member: discord.Member = None)
+        uroles = my_roles.Roles(ctx.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = ctx.author,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.error(description = f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
+
+        if member is None:
+            member = ctx.author
+
+        ticket_stat = self.db.get_claimed_data(member)
+
+        embed = discord.Embed(
+            title = 'Статистика'
+        )
     @commands.command()
     @commands.guild_only()
     @commands.has_guild_permissions( administrator = True )

@@ -127,7 +127,7 @@ class TicketsDB:
     
     async def get_claimed_data(self, member):
         await self.new_claimed_member(member)
-        return self.cluster["tickets"]["claimed_count"].find_one({"id": member.id})
+        return await self.cluster["tickets"]["claimed_count"].find_one({"id": member.id})
             
        
     async def claim_ticket(self, *, ticket_channel, who_claimed):
