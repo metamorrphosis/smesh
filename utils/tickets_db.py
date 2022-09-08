@@ -18,6 +18,24 @@ class TicketsDB:
         new_ticket["who_claimed"] = int(who_claimed.id) if who_claimed else 0
         new_ticket["open_time"] = int(open_time)
         await self.cluster["tickets"]["tickets_list"].insert_one(new_ticket)
+        guild = author.guild
+        log_channel = guild.get_channel(1017140347983384739)
+        emblog = discord.Embed(
+            title = 'Тикет открыт',
+            color = 0x00ff00,
+            timestamp = datetime.now()
+        )
+        emblog.add_field(
+            name = 'Автор тикета',
+            value = f'{author.mention} | `{author}` | `{author.id}`',
+            inline = False
+        )
+        emblog.add_field(
+            name = 'Айди тикета',
+            value = ticket_id,
+            inline = False
+        )
+        await log_channel.send(embed = emblog)
         return ticket_id
     
     async def delete_ticket(self, *, ticket_channel, closed_by):
