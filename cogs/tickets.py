@@ -35,15 +35,16 @@ class OpenedTicketView(discord.ui.View):
         ticket_overwrites = {}
         staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
 
-        for i in staff_roles:
-            await interaction.channel.set_permissions(i, send_messages = False)
-
         await self.db.claim_ticket(
             ticket_channel = interaction.channel,
             who_claimed = interaction.user
         )
 
+        await interaction.channel.set_permissions(interaction.user, send_messages = True)
         await interaction.response.send_message(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
+
+        for i in staff_roles:
+            await interaction.channel.set_permissions(i, send_messages = False)
 
     @discord.ui.button(
         emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
