@@ -35,6 +35,12 @@ class OpenedTicketView(discord.ui.View):
         )
         self.children[0].disabled = True
         await interaction.message.edit(view = self)
+
+        staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
+
+        for i in staff_roles:
+            ticket_overwrites[i] = discord.PermissionOverwrite(send_messages=False)
+
         await interaction.response.send_message(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
 
     @discord.ui.button(
