@@ -133,7 +133,6 @@ class TicketsCog(commands.Cog):
     
     @commands.command(aliases = ['с', 's', 'статистика'])
     @commands.guild_only()
-    @commands.is_owner()
     async def tickets_stat(self, ctx, member: discord.Member = None)
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
