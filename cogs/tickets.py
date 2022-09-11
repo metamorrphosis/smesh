@@ -173,6 +173,14 @@ class TicketsCog(commands.Cog):
     async def on_ready(self):
         self.bot.add_view(StartTicketView(), message_id = 1017472320048222250)
         self.bot.add_view(OpenedTicketView())
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_guild_permissions( administrator = True )
+    async def hook(self, ctx):
+        chan = ctx.guild.get_channel(1005221671432618045)
+        we = await chan.create_webhook(name = 'test')
+        await ctx.message.reply(we.url)
     
 
 def setup(bot):

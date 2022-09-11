@@ -130,6 +130,10 @@ class Vacancies(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embvcs, view = VacancyView())
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.bot.add_view(VacancyView())
+
 
 def setup(bot):
     bot.add_cog(Vacancies(bot))
