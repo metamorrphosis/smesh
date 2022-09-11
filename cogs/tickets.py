@@ -1,8 +1,7 @@
 import discord
-from utils import tickets_db, my_roles, slash_groups
+from utils import tickets_db, my_roles
 from datetime import datetime
 from discord.ext import commands
-tickets_group = slash_groups.tickets_group
 
 class OpenedTicketView(discord.ui.View):
     def __init__(self):
@@ -140,10 +139,6 @@ class TicketsCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
-    @tickets_group.command(description = 'aaaaa')
-    async def close(self, ctx):
-        await ctx.respond("Hi, this is a global slash command from a cog!")
-    
     @commands.command(aliases = ['с', 's', 'статистика'])
     @commands.guild_only()
     @commands.is_owner()
@@ -173,14 +168,6 @@ class TicketsCog(commands.Cog):
     async def on_ready(self):
         self.bot.add_view(StartTicketView(), message_id = 1017472320048222250)
         self.bot.add_view(OpenedTicketView())
-
-    @commands.command()
-    @commands.guild_only()
-    @commands.has_guild_permissions( administrator = True )
-    async def hook(self, ctx):
-        chan = ctx.guild.get_channel(1005221671432618045)
-        we = await chan.create_webhook(name = 'test')
-        await ctx.message.reply(we.url)
     
 
 def setup(bot):
