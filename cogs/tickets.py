@@ -139,6 +139,10 @@ class TicketsCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
+    @commands.slash_command(guild_ids=[837941760193724426], description = 'Закрывает тикет')
+    async def close(self, ctx):
+        await ctx.send_response('a', ephemeral = True)
+    
     @commands.command(aliases = ['с', 's', 'статистика'])
     @commands.guild_only()
     @commands.is_owner()
