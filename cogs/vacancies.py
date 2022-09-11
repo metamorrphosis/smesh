@@ -260,10 +260,12 @@ class Vacancies(commands.Cog):
         embtg[0].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
         
         await ctx.message.delete()
-        async with aiohttp.ClientSession() as session:
-            webhook = discord.Webhook.from_url(self.hook_url, session = session)
-            await webhook.send(embeds = embhelper, view = HelperView())
-            await webhook.send(embeds = embtg, view = TelegramView())
+        channel = ctx.guild.get_channel(1005221671432618045)
+        webhook = await channel.webhooks()
+        webhook = webhook[0]
+        print(webhook.is_partial())
+        await webhook.send(embeds = embhelper, view = HelperView())
+        await webhook.send(embeds = embtg, view = TelegramView())
 
     @commands.Cog.listener()
     async def on_ready(self):
