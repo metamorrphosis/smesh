@@ -255,7 +255,7 @@ class Vacancies(commands.Cog):
             )
         ]
         
-        embhelpr[0].set_image(url = 'https://media.discordapp.net/attachments/1017458641537859604/1018507896327249961/1662901405981.png')
+        embhelper[0].set_image(url = 'https://media.discordapp.net/attachments/1017458641537859604/1018507896327249961/1662901405981.png')
         embhelper[1].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
         embtg[0].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
         
