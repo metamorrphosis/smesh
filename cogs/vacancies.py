@@ -239,24 +239,26 @@ class Vacancies(commands.Cog):
     async def vcs(self, ctx):
         embhelper = [
             discord.Embed(
-                color = 0xbffed9,
-                image.url = 'https://media.discordapp.net/attachments/1017458641537859604/1018507896327249961/1662901405981.png'
+                color = 0xbffed9
             ),
             discord.Embed(
                 title = '<:emoji_3:1015871727101816852>・Набор на роль Помощника в дискорд',
                 description = '━────────────────━\n**Требования для подачи заявки:**\n<:emoji_1:1015862630453354536>Не менее 14 полных лет.\n<:emoji_2:1015862660497154089>Знание правил сервера.\n<:emoji_1:1015862630453354536>10 уровень в JuniperBot.\n<:emoji_2:1015862660497154089>Опыт работы в подобной сфере.\n\n**Что мы можем предложить взамен:**\n<:emoji_1:1015862630453354536>Зарплата игровой валютой в виде <:vajno_2:1018512718585679882>.',
-                color = 0xbffed9,
-                image.url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg'
+                color = 0xbffed9
             )
         ]
         embtg = [
             discord.Embed(
                 title = '<:emoji_3:1015871727101816852>・Набор на роль Модератора в телеграмм.',
                 description = '━────────────────━\n**Требования для подачи заявки:**\n<:emoji_1:1015862630453354536>Не менее 14 полных лет.\n<:emoji_2:1015862660497154089>Знание правил в телеграмм группе.\n<:emoji_1:1015862630453354536>Активное появление в телеграмме.\n\n**Что мы можем предложить взамен:**\n<:emoji_2:1015862660497154089>Опыт работы в подобной сфере.\n<:emoji_1:1015862630453354536>Новые знакомства и коллектив.',
-                color = 0xbffed9,
-                image.url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg'
+                color = 0xbffed9
             )
         ]
+        
+        embhelpr[0].set_image(url = 'https://media.discordapp.net/attachments/1017458641537859604/1018507896327249961/1662901405981.png')
+        embhelper[1].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
+        embtg[0].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
+        
         await ctx.message.delete()
         async with aiohttp.ClientSession() as session:
             webhook = discord.Webhook.from_url(self.hook_url, session = session)
