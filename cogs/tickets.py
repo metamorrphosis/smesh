@@ -154,6 +154,8 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
+        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+            return await ctx.send_response('Эта команда доступна только в категории тикетов (<#1004839366763495464>)', ephemeral  = True)
         await self.db.delete_ticket(
             ticket_channel = ctx.channel,
             closed_by = ctx.author
