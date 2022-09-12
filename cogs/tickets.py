@@ -199,7 +199,7 @@ class TicketsCog(commands.Cog):
             who_claimed = ctx.author
         )
 
-        await ctx.send_response(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
+        await ctx.send_response(f'{ctx.author.mention} (`{ctx.author}`) Будет обслуживать Ваш тикет')
 
         ticket_overwrites = {}
         staff_roles = my_roles.Roles(ctx.guild).get_all_staff_roles()[:6]
