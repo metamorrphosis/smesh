@@ -107,7 +107,7 @@ class TelegramModal(discord.ui.Modal):
             discord.ui.InputText(
                 label="Ваше имя",
                 placeholder="Пример: Петя",
-                min_length=4,
+                min_length=1,
                 max_length=100,
                 style=discord.InputTextStyle.short,
                 required=True,
@@ -123,15 +123,15 @@ class TelegramModal(discord.ui.Modal):
             discord.ui.InputText(
                 label="Ваш телеграмм",
                 placeholder="Пример: @petya228",
-                min_length=4,
-                max_length=150,
-                style=discord.InputTextStyle.long,
+                min_length=2,
+                max_length=100,
+                style=discord.InputTextStyle.short,
                 required=True,
             ),
             discord.ui.InputText(
                 label="Был ли у Вас опыт в подобной сфере?",
                 placeholder="Пример: Да был, в телеграмм канале (23,000 участников)",
-                min_length= 20,
+                min_length= 2,
                 max_length=500,
                 style=discord.InputTextStyle.long,
                 required=True,
