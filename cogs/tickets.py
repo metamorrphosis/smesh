@@ -168,6 +168,8 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'claim', description = 'Принимает тикет')
     async def slash_ticket_claim(self, ctx):
+        await ctx.response.defer()
+        
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
         check_roles = uroles.roles_check(
