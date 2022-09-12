@@ -183,6 +183,11 @@ class TicketsCog(commands.Cog):
         if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
 
+        ticket_id = self.db.get_ticket_id(ctx.channel)
+        db_ticket = await self.db.cluster["tickets"]["tickets_list"].find_one({"_id": ticket_id})
+        if db_ticket["who_claimed"] == 0:
+            return await ctx.send_response('Данный тикет уже и так принят', ephemeral  = True)
+            
         async for message in ctx.channel.history(limit = 10, oldest_first = True):
             if message.author.id == self.bot.user.id:
                 global first_message
