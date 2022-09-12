@@ -1,4 +1,5 @@
 import discord
+from discord import option
 from utils import tickets_db, my_roles
 from datetime import datetime
 from discord.ext import commands
@@ -208,13 +209,40 @@ class TicketsCog(commands.Cog):
 
         await ctx.channel.send(f'{ctx.author.mention} (`{ctx.author}`) Будет обслуживать Ваш тикет')
 
-        await ctx.send_response('Ок', ephemeral = True)
+        await ctx.send_response('Вы успешно приняли тикет', ephemeral = True)
         
         ticket_overwrites = {}
         staff_roles = my_roles.Roles(ctx.guild).get_all_staff_roles()[:6]
 
         for i in staff_roles:
             await ctx.channel.set_permissions(i, send_messages = False)
+    
+    @slash_group.command(name = 'add', description = 'Добавить пользователя в тикет')
+    @option(
+        name = 'Пользователь', 
+        description = 'Пользователь, которого необходимо добавитьв тикет',
+        input_type = discord.Member,
+        required = True
+        
+    )
+    async def slash_ticket_add(self, ctx, member: discord.Member):
+
+        uroles = my_roles.Roles(ctx.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = ctx.author,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+
+        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
+        
+        await ctx.send_response(f'{member}', ephemeral = True)
         
 
 
