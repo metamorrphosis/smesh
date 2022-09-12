@@ -188,7 +188,7 @@ class TicketsCog(commands.Cog):
                 global first_message
                 first_message = message
         
-        ticket_view = discord.View.from_message(first_message)
+        ticket_view = discord.ui.View.from_message(first_message)
         ticket_view.children[0].disabled = True
         await first_message.edit(view = ticket_view)
 
