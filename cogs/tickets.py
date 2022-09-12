@@ -205,13 +205,15 @@ class TicketsCog(commands.Cog):
             who_claimed = ctx.author
         )
 
-        await ctx.send_response(f'{ctx.author.mention} (`{ctx.author}`) Будет обслуживать Ваш тикет')
+        await ctx.channel.send(f'{ctx.author.mention} (`{ctx.author}`) Будет обслуживать Ваш тикет')
 
         ticket_overwrites = {}
         staff_roles = my_roles.Roles(ctx.guild).get_all_staff_roles()[:6]
 
         for i in staff_roles:
             await ctx.channel.set_permissions(i, send_messages = False)
+            
+        await ctx.response.defer()
 
 
 
