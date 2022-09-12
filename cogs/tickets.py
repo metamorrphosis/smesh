@@ -211,8 +211,9 @@ class TicketsCog(commands.Cog):
         staff_roles = my_roles.Roles(ctx.guild).get_all_staff_roles()[:6]
 
         for i in staff_roles:
-            print(i.name)
             await ctx.channel.set_permissions(i, send_messages = False)
+        
+        await ctx.delete()
 
 
 
