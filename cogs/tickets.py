@@ -155,8 +155,8 @@ class TicketsCog(commands.Cog):
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
         await self.db.delete_ticket(
-            ticket_channel = interaction.channel,
-            closed_by = interaction.user
+            ticket_channel = ctx.channel,
+            closed_by = ctx.author
         )  
 
         await ctx.send_response('Тикет закрыт')
