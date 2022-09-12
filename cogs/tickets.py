@@ -142,7 +142,7 @@ class TicketsCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
-    @slash_group.command(name = 'close', description = 'Закрывает тикет', guild_only = True, guild_ids = [837941760193724426])
+    @slash_group.command(name = 'close', description = 'Закрывает тикет')
     async def slash_ticket_close(self, ctx):
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
@@ -166,7 +166,7 @@ class TicketsCog(commands.Cog):
 
         await ctx.send_response('Тикет закрыт')
     
-    @slash_group.command(name = 'claim', description = 'Принимает тикет', guild_only = True, guild_ids = [837941760193724426])
+    @slash_group.command(name = 'claim', description = 'Принимает тикет')
     async def slash_ticket_claim(self, ctx):
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
@@ -183,7 +183,7 @@ class TicketsCog(commands.Cog):
         if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
 
-        async for message in ctx.channel.history(limit = 10, older_first = True):
+        async for message in ctx.channel.history(limit = 10, oldest_first = True):
             if message.author.id == self.bot.user.id:
                 global first_message
                 first_message = message
