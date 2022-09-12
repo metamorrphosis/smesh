@@ -168,8 +168,7 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'claim', description = 'Принимает тикет')
     async def slash_ticket_claim(self, ctx):
-        await ctx.response.defer()
-        
+
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
         check_roles = uroles.roles_check(
@@ -215,7 +214,7 @@ class TicketsCog(commands.Cog):
         for i in staff_roles:
             await ctx.channel.set_permissions(i, send_messages = False)
         
-        await ctx.delete()
+        await ctx.send_response('Ок', ephemeral = True)
 
 
 
