@@ -98,8 +98,9 @@ class StartTicketView(discord.ui.View):
 
         staff_roles = my_roles.Roles(interaction.guild).get_all_staff_roles()[:6]
 
-        for i in staff_roles:
-            ticket_overwrites[i] = discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True)
+        if interaction.user.id != 1007615585506566205:
+            for i in staff_roles:
+                ticket_overwrites[i] = discord.PermissionOverwrite(read_messages=True, send_messages=True, attach_files=True)
 
         ticket_id = await self.db.insert_ticket(
             author = interaction.user,
@@ -139,10 +140,29 @@ class TicketsCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
-    @commands.slash_command(description = 'Закрывает тикет', name = 'close', guild_only = True, guild_ids=[837941760193724426])
-    async def ticket_close(self, ctx):
-        await ctx.send_response('a', ephemeral = True)
-    
+    @commands.slash_command(name = 'close', description = 'Закрывает тикет', guild_only = True, guild_ids = [837941760193724426])
+    async def slash_ticket_close(self, ctx):
+        uroles = my_roles.Roles(ctx.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = ctx.author,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+
+        await self.db.delete_ticket(
+            ticket_channel = interaction.channel,
+            closed_by = interaction.user
+        )  
+
+        await ctx.send_response('Тикет закрыт')
+
+
+
     @commands.command(aliases = ['с', 's', 'статистика'])
     @commands.guild_only()
     @commands.is_owner()
