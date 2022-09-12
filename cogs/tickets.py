@@ -155,13 +155,55 @@ class TicketsCog(commands.Cog):
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
         if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
-            return await ctx.send_response('Эта команда доступна только в категории тикетов (<#1004839366763495464>)', ephemeral  = True)
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
+
         await self.db.delete_ticket(
             ticket_channel = ctx.channel,
             closed_by = ctx.author
         )  
 
         await ctx.send_response('Тикет закрыт')
+    
+    @commands.slash_command(name = 'claim', description = 'Принимает тикет', guild_only = True, guild_ids = [837941760193724426])
+    async def slash_ticket_claim(self, ctx):
+        uroles = my_roles.Roles(ctx.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = ctx.author,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+
+        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
+
+        async for message in ctx.channel.history(limit = 10, older_first = True):
+            if message.author.id == self.bot.user.id:
+                global first_message
+                first_message = message
+        
+        ticket_view = discord.View.from_message(first_message)
+        ticket_view.children[0].disabled = True
+        await first_message.edit(view = ticket_view)
+
+        await ctx.channel.set_permissions(ctx.author, send_messages=True, read_messages=True)
+
+        await self.db.claim_ticket(
+            ticket_channel = ctx.channel,
+            who_claimed = ctx.author
+        )
+
+        await ctx.send_response(f'{interaction.user.mention} (`{interaction.user}`) Будет обслуживать Ваш тикет')
+
+        ticket_overwrites = {}
+        staff_roles = my_roles.Roles(ctx.guild).get_all_staff_roles()[:6]
+
+        for i in staff_roles:
+            await interaction.channel.set_permissions(i, send_messages = False)
 
 
 
