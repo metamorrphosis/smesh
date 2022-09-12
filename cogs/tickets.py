@@ -142,7 +142,7 @@ class TicketsCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
-    @slash_group.slash_command(name = 'close', description = 'Закрывает тикет', guild_only = True, guild_ids = [837941760193724426])
+    @slash_group.command(name = 'close', description = 'Закрывает тикет', guild_only = True, guild_ids = [837941760193724426])
     async def slash_ticket_close(self, ctx):
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
@@ -166,7 +166,7 @@ class TicketsCog(commands.Cog):
 
         await ctx.send_response('Тикет закрыт')
     
-    @slash_group.slash_command(name = 'claim', description = 'Принимает тикет', guild_only = True, guild_ids = [837941760193724426])
+    @slash_group.command(name = 'claim', description = 'Принимает тикет', guild_only = True, guild_ids = [837941760193724426])
     async def slash_ticket_claim(self, ctx):
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
