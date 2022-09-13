@@ -219,7 +219,7 @@ class TicketsCog(commands.Cog):
     @slash_group.command(name = 'add', description = 'Добавляет пользователя в тикет')
     @option(
         name = 'Пользователь',
-        description = 'Пользователь, которого необходимо добавить в тикет'
+        description = 'Пользователь, которого необходимо добавить в тикет',
         input_type = discord.Member,
         required = True
         
@@ -247,7 +247,7 @@ class TicketsCog(commands.Cog):
     @slash_group.command(name = 'remove', description = 'Удаляет пользователя из тикета')
     @option(
         name = 'Пользователь',
-        description = 'Пользователь, которого необходимо удалить из тикета'
+        description = 'Пользователь, которого необходимо удалить из тикета',
         input_type = discord.Member,
         required = True
         
