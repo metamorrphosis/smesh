@@ -195,6 +195,7 @@ class TicketsCog(commands.Cog):
             if message.author.id == self.bot.user.id:
                 global first_message
                 first_message = message
+                break
         
         ticket_view = discord.ui.View.from_message(first_message)
         ticket_view.children[0].disabled = True
@@ -217,8 +218,7 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'add', description = 'Добавляет пользователя в тикет')
     @option(
-        name = 'Пользователь', 
-        description = 'Пользователь, которого необходимо добавитьв тикет',
+        'Пользователь, которого необходимо добавить в тикет',
         input_type = discord.Member,
         required = True
         
