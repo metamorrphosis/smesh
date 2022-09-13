@@ -158,7 +158,7 @@ class TicketsCog(commands.Cog):
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
         if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
-            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         await self.db.delete_ticket(
             ticket_channel = ctx.channel,
@@ -183,7 +183,7 @@ class TicketsCog(commands.Cog):
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
         if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
-            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         ticket_id = self.db.get_ticket_id(ctx.channel)
         db_ticket = await self.db.cluster["tickets"]["tickets_list"].find_one({"_id": ticket_id})
@@ -207,9 +207,7 @@ class TicketsCog(commands.Cog):
             who_claimed = ctx.author
         )
 
-        await ctx.channel.send(f'{ctx.author.mention} (`{ctx.author}`) Будет обслуживать Ваш тикет')
-
-        await ctx.send_response('Вы успешно приняли тикет', ephemeral = True)
+        await ctx.send_response(f'{ctx.author.mention} (`{ctx.author}`) Будет обслуживать Ваш тикет')
         
         ticket_overwrites = {}
         staff_roles = my_roles.Roles(ctx.guild).get_all_staff_roles()[:6]
@@ -217,7 +215,7 @@ class TicketsCog(commands.Cog):
         for i in staff_roles:
             await ctx.channel.set_permissions(i, send_messages = False)
     
-    @slash_group.command(name = 'add', description = 'Добавить пользователя в тикет')
+    @slash_group.command(name = 'add', description = 'Добавляет пользователя в тикет')
     @option(
         name = 'Пользователь', 
         description = 'Пользователь, которого необходимо добавитьв тикет',
@@ -240,9 +238,10 @@ class TicketsCog(commands.Cog):
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
         if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
-            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral  = True)
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
-        await ctx.send_response(f'{member}', ephemeral = True)
+        await ctx.channel.set_permissions(member, read_messages = True, send_messages = True, attach_files = True)
+        await ctx.send_response(f'{member.mention} (`{member}`) успешно добавлен в тикет')
         
 
 
