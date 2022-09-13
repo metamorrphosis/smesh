@@ -218,7 +218,8 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'add', description = 'Добавляет пользователя в тикет')
     @option(
-        'ddd',
+        name = 'Пользователь',
+        description = 'Пользователь, которого необходимо добавить в тикет'
         input_type = discord.Member,
         required = True
         
@@ -242,6 +243,34 @@ class TicketsCog(commands.Cog):
         
         await ctx.channel.set_permissions(member, read_messages = True, send_messages = True, attach_files = True)
         await ctx.send_response(f'{member.mention} (`{member}`) успешно добавлен в тикет')
+    
+    @slash_group.command(name = 'remove', description = 'Удаляет пользователя из тикета')
+    @option(
+        name = 'Пользователь',
+        description = 'Пользователь, которого необходимо удалить из тикета'
+        input_type = discord.Member,
+        required = True
+        
+    )
+    async def slash_ticket_remove(self, ctx, member: discord.Member):
+
+        uroles = my_roles.Roles(ctx.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = ctx.author,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+
+        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+            return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
+        
+        await ctx.channel.set_permissions(member, read_messages = False, send_messages = False, attach_files = False)
+        await ctx.send_response(f'{member.mention} (`{member}`) успешно удален из тикета')
         
 
 
