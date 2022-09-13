@@ -2,7 +2,7 @@ import config
 import discord
 from discord.ext import commands
 
-class Start(commands.Cog):    
+class StartCog(commands.Cog):    
     def __init__(self, bot):
         self.bot = bot
     
@@ -13,4 +13,4 @@ class Start(commands.Cog):
         print(f'{self.bot.user} | {self.bot.user.id} запущен\n\nКоличество выгруженных файлов: {len(self.bot.extensions)}, когов: {len(self.bot.cogs)}\nПинг бота: {botping} мс\n------------------------')
         
 def setup(bot):
-    bot.add_cog(Start(bot))
+    bot.add_cog(StartCog(bot))

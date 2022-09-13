@@ -227,7 +227,7 @@ class TelegramView(discord.ui.View):
         await interaction.response.send_modal(TelegramModal(title = 'Заявка на роль модератора в телеграмм'))
 
 
-class Vacancies(commands.Cog):    
+class VacanciesCog(commands.Cog):    
     def __init__(self, bot):
         self.bot = bot
         self.hook_url = 'https://discord.com/api/webhooks/1018488382059462726/1X5vAr1FqtsgqNs2KgKUTDKeTS46_99CVapek6R_yyHeerwYU8U_cHf8tveRqrWm2Fzi'
@@ -272,4 +272,4 @@ class Vacancies(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Vacancies(bot))
+    bot.add_cog(VacanciesCog(bot))
