@@ -218,7 +218,7 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'add', description = 'Добавляет пользователя в тикет')
     @option(
-        'Пользователь, которого необходимо добавить в тикет',
+        'ddd',
         input_type = discord.Member,
         required = True
         
