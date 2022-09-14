@@ -10,6 +10,7 @@ class EconomyCog(commands.Cog):
     @commands.command(aliases = ['money', 'bal', 'бал', 'баланс'])
     async def balance(self, ctx):
         member_bal = await self.db.get_money(member = member)
+        print(member_bal)
         
     
 def setup(bot):
