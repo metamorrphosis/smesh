@@ -12,6 +12,7 @@ class EconomyDB:
     async def insert_member(self, *, member):
         if await self.balances.find_one({"_id": member.id}) is None:
             new_member = {}
+            new_member["_id"] = member.id
             new_member["cash"] = 0
             new_member["bank"] = 0
             await self.balances.insert_one(new_member)
