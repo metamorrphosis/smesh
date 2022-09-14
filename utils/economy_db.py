@@ -7,21 +7,21 @@ import discord
 class EconomyDB:
     def __init__(self):
         self.cluster = AsyncIOMotorClient(config.mongodb_link)
-        self.economy = self.cluster["economy"]
+        self.balances = self.cluster["economy"]["balances"]
     
     async def insert_member(self, *, member):
-        if await self.economy["balances"].find_one({"_id": member.id}) is None:
+        if await self.balances.find_one({"_id": member.id}) is None:
             new_member = {}
             new_member["cash"] = 0
             new_member["bank"] = 0
-            await self.economy.insert_one(new_member)
+            await self.balances.insert_one(new_member)
             return True
         else:
             return False
     
     async def add_money(self, *, member, mode = "cash", value):
         await self.insert_member(member = member)
-        await self.economy.update_one(
+        await self.balances.update_one(
             {"_id": member.id},
             {"$inc": {mode: value}}
         )
@@ -29,7 +29,7 @@ class EconomyDB:
     
     async def remove_money(self, *, member, mode = "cash", value):
         await self.insert_member(member = member)
-        await self.economy.update_one(
+        await self.balances.update_one(
             {"_id": member.id},
             {"$dec": {mode: value}}
         )
@@ -37,4 +37,4 @@ class EconomyDB:
     
     async def get_money(self, *, member):
         await self.insert_member(member = member)
-        return await self.economy["balances"].find_one({"_id": member.id})
+        return await self.balances.find_one({"_id": member.id})
