@@ -7,10 +7,10 @@ from discord.ext import commands
 
 
 class MyContext(commands.Context):  
-    async def error(self, *, description = None, fields = None):
+    async def error(self, *, title = '❌ Ошибка', description = None, fields = None):
         emberror = discord.Embed(
-            title = '❌ Ошибка',
-            color = 0xff0000,
+            title = title,
+            color = 0xf03a3a,
             timestamp = datetime.now(),
             description = description,
             fields = fields
@@ -18,6 +18,27 @@ class MyContext(commands.Context):
         emberror.set_footer(text = self.author, icon_url = self.author.display_avatar.url)
         await self.reply(embed = emberror)
 
+    async def success(self, *, title = 'Успешно', description = None, fields = None):
+        emberror = discord.Embed(
+            title = title,
+            color = 0x9cde6e,
+            timestamp = datetime.now(),
+            description = description,
+            fields = fields
+        )
+        emberror.set_footer(text = self.author, icon_url = self.author.display_avatar.url)
+        await self.reply(embed = emberror)
+
+    async def natural(self, *, title = None, description = None, fields = None):
+        emberror = discord.Embed(
+            title = title,
+            color = 0x03a8f4,
+            timestamp = datetime.now(),
+            description = description,
+            fields = fields
+        )
+        emberror.set_footer(text = self.author, icon_url = self.author.display_avatar.url)
+        await self.reply(embed = emberror)
 
 class MyBot(commands.Bot):
     async def get_context(self, message: discord.Message, *, cls = MyContext):

@@ -6,11 +6,10 @@ class EconomyCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def url(self, ctx):
-        m = await ctx.channel.fetch_message(1019628854748393483)
-        s = m.embeds[0].fields[0].value
-        e = discord.PartialEmoji.from_str(s)
-        await ctx.message.reply(e.url)
+    async def test(self, ctx):
+        await ctx.error()
+        await ctx.success()
+        await ctx.natural()
     
 def setup(bot):
     bot.add_cog(EconomyCog(bot))
