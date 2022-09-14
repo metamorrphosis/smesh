@@ -11,7 +11,7 @@ class OpenedTicketView(discord.ui.View):
     
 
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_member:1001811269239722005>'), 
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_member:1018512431510724658>'), 
         style = discord.ButtonStyle.gray,
         custom_id = "ticket_claim",
         label = 'Принять тикет'
@@ -47,7 +47,7 @@ class OpenedTicketView(discord.ui.View):
             await interaction.channel.set_permissions(i, send_messages = False)
             
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1001811218840952984>'), 
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_tech:1018512527258304583>'), 
         style = discord.ButtonStyle.gray,
         custom_id = "ticket_close",
         label = 'Закрыть тикет'
@@ -78,7 +78,7 @@ class StartTicketView(discord.ui.View):
         super().__init__(timeout = None)
     
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_curator:1001817272240844911>'), 
+        emoji = discord.PartialEmoji.from_str('<:asm_stormy_curator:1018512377634893874>'), 
         style = discord.ButtonStyle.green,
         custom_id = "open_ticket",
         label = 'Открыть тикет'
@@ -112,10 +112,10 @@ class StartTicketView(discord.ui.View):
         mention = await ticket_channel.send(self.mention_message)
         embticket = discord.Embed(
             title = f'Тикеты | Smesh',
-            description = f'**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**\n・Здравствуйте! Вы попали в свой тикет. Модерация поможет вам в кротчайшие сроки. Пока что можете написать цель создания тикета.',
+            description = f'**──────── [<:asm_stormy_staff:1018512513047994368>] ────────**\n・Здравствуйте! Вы попали в свой тикет. Модерация поможет вам в кротчайшие сроки. Пока что можете написать цель создания тикета.',
             color = 0xbffed9
         )
-        embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1001811381554782280>] ────────**', inline = False)
+        embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1018512513047994368>] ────────**', inline = False)
         await mention.delete() 
         await ticket_channel.send(f'{interaction.user.mention}', embed = embticket, view = OpenedTicketView())
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
