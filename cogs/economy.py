@@ -45,7 +45,7 @@ class EconomyCog(commands.Cog):
         examples_field = discord.EmbedField(
             name = 'Примеры использования команды',
             value = f'`{prf}add-money @Петя228 5000` — поскольку вместо режима число — выдаст пете 5000 валюты в банк\
-            `{prf}add-money 1007615585506566205 cash 10,000` — выдаст участнику по ID 10,000 валюты в наличные'
+            \n`{prf}add-money 1007615585506566205 cash 10,000` — выдаст участнику по ID 10,000 валюты в наличные'
         )
 
         if member is None:
