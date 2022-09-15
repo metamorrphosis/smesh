@@ -8,6 +8,6 @@ def nc(arg: str) -> str:
             step = 0
 
         new_str += i
-        s += 1
+        step += 1
     
     return new_str[::-1]
