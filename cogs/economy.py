@@ -80,7 +80,7 @@ class EconomyCog(commands.Cog):
         value = int(value)
 
         if value >= 1000000000000000000:
-            return await ctx.error(description = f'Число не может быть больше {nc('1000000000000000000')}')
+            return await ctx.error(description = f'Число не может быть больше {nc("1000000000000000000")}')
 
         await self.db.add_money(
             member = member,
