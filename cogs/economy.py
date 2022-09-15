@@ -2,6 +2,7 @@ import config
 import discord
 from typing import Union
 from utils import economy_db
+from utils.other import nc
 from discord.ext import commands
 prf = config.cmd_prefix
 
@@ -37,7 +38,7 @@ class EconomyCog(commands.Cog):
         )
     
     @commands.command(aliases = ['add-money', 'выдать-деньги', 'выдатьденьги', 'аддмоней', 'монейадд'])
-    async def addmoney(self, ctx, member: discord.Member = None, mode: Union[int, str] = None, value = None):
+    async def addmoney(self, ctx, member: Union[discord.Member, str] = None, mode = None, value = None):
         usage_field = discord.EmbedField(
             name = 'Использование команды',
             value = f'`{prf}add-money <ник, упоминание или ID участника> <куда выдать (наличные, банк), если указать тут не режим а число — выдача в банк> [количество, указывать только если указан режим]`',
@@ -49,11 +50,41 @@ class EconomyCog(commands.Cog):
         )
 
         if member is None:
-            return await ctx.error(description = 'Вы не указали участника, которому необходимо выдать валюту', fields = [usage_field, examples_field])
+            return await ctx.error(description = 'Вы не указали участника, которому необходимо выдать валюту в первом аргументе', fields = [usage_field, examples_field])
         
+        if not(isinstance(member, discord.Member)):
+            return await ctx.error(description = 'Участник не найден')
+
+        if mode is None:
+            return await ctx.error(description = 'Вы не указали режим, куда нужно выдать деньги, либо число в втором аргументе', fields = [usage_field, examples_field])
+        
+        cash_list = ['cash', 'наличные', 'кеш', 'наличка']
+        bank_list = ['bank', 'банк']
+
+        if mode in cash_list:
+            mode = 'cash'
+        elif mode in bank_list:
+            mode = 'bank'
+        elif mode.isdigit():
+            value = mode
+            mode = 'bank'
+        else:
+            return await ctx.error(description = 'Вы не указали не режим и не положительное число вторым аргументом', fields = [usage_field, examples_field])
+        
+        if value is None:
+            return await ctx.error(description = 'Вы указали режим, и не указали положительное число в третьем аргументе', fields = [usage_field, examples_field])
+
+        if not(value.isdigit()):
+            return await ctx.error(description = 'Вы указали не положительное число в третьем аргументе', fields = [usage_field, examples_field])
+        
+        value = int(value)
+
+        if value >= 1000000000000000000:
+            return await ctx.error(f'Число не может быть больше {nc(str(value))}')
+
         await self.db.add_money(
             member = member,
-            mode = "bank",
+            mode = mode,
             value = value
         )
     
