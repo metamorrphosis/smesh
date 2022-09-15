@@ -13,6 +13,7 @@ class EconomyCog(commands.Cog):
         self.db = economy_db.EconomyDB()
 
     @commands.command(aliases = ['money', 'bal', 'бал', 'баланс'])
+    @commands.guild_only()
     async def balance(self, ctx, member: discord.Member = None):
         member = member or ctx.author
         member_bal = await self.db.get_money(member = member)
@@ -38,6 +39,7 @@ class EconomyCog(commands.Cog):
         )
     
     @commands.command(aliases = ['add-money', 'am', 'выдать-деньги', 'выдатьденьги', 'аддмоней', 'монейадд'])
+    @commands.guild_only()
     async def addmoney(self, ctx, member: Union[discord.Member, str] = None, mode = None, value = None):
         usage_field = discord.EmbedField(
             name = 'Использование команды',
@@ -90,6 +92,30 @@ class EconomyCog(commands.Cog):
 
         await ctx.success(
             description = f'Выдал {nc(str(value))}<:vajno_2:1018512718585679882> {member.mention} (`{member}`) в {"банк" if mode == "bank" else "наличные"}'
+        )
+    
+    @commands.command(aliases = ['reset-money', 'rm', 'сброс-денег', 'сбросденьги', 'ресетмоней', 'ресет-моней'])
+    @commands.guild_only()
+    @commands.has_guild_permissions( administrator = True )
+    async def resetmoney(self, ctx, member: Union[discord.Member, str] = None):
+        usage_field = discord.EmbedField(
+            name = 'Использование команды',
+            value = f'`{prf}reset-money <ник, упоминание или ID участника>`',
+        )
+        examples_field = discord.EmbedField(
+            name = 'Примеры использования команды',
+            value = f'`{prf}reset-money @Петя228` — сбросит все деньги пети228\
+            \n\n`{prf}add-money 1007615585506566205` — сбросит все деньги участнику с данным ID'
+        )
+
+        if member is None:
+            return await ctx.error(description = 'Вы не указали участника, которому необходимо сбросить валюту в первом аргументе', fields = [usage_field, examples_field])
+        
+        if not(isinstance(member, discord.Member)):
+            return await ctx.error(description = 'Участник не найден')
+
+        ctx.success(
+            description = f'em'
         )
     
 def setup(bot):
