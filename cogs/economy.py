@@ -89,7 +89,7 @@ class EconomyCog(commands.Cog):
         )
 
         await ctx.success(
-            description = f'Выдал {nc(str(value))}<:vajno_2:1018512718585679882> {member.mentiob} (`{member}`) в {"банк" if mode == "bank" else "наличные"}'
+            description = f'Выдал {nc(str(value))}<:vajno_2:1018512718585679882> {member.mention} (`{member}`) в {"банк" if mode == "bank" else "наличные"}'
         )
     
 def setup(bot):
