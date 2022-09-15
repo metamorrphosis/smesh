@@ -36,6 +36,14 @@ class EconomyDB:
         )
         return True
     
+    async def reset_money(self, *, member):
+        await self.insert_member(member = member)
+        await self.balances.update_one(
+            {"_id": member.id},
+            {"$set": {"cash": 0, "bank": 0}}
+        )
+        return True
+    
     async def get_money(self, *, member):
         await self.insert_member(member = member)
         return await self.balances.find_one({"_id": member.id})
