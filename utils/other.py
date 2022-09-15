@@ -1,5 +1,4 @@
 def nc(arg: str) -> str:
-    arg = arg[::-1]
     step, new_str = 0, ''
 
     for i in arg[::-1]:
