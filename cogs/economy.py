@@ -80,12 +80,16 @@ class EconomyCog(commands.Cog):
         value = int(value)
 
         if value >= 1000000000000000000:
-            return await ctx.error(description = f'Число не может быть больше {nc(str(value))}')
+            return await ctx.error(description = f'Число не может быть больше {nc('1000000000000000000')}')
 
         await self.db.add_money(
             member = member,
             mode = mode,
             value = value
+        )
+
+        await ctx.success(
+            description = f'Выдал {nc(str(value))}<:vajno_2:1018512718585679882> {member.mentiob} (`{member}`) в {'банк' if mode == 'bank' else 'наличные'}'
         )
     
 def setup(bot):
