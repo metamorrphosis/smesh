@@ -37,7 +37,7 @@ class EconomyCog(commands.Cog):
             ]
         )
     
-    @commands.command(aliases = ['add-money', 'выдать-деньги', 'выдатьденьги', 'аддмоней', 'монейадд'])
+    @commands.command(aliases = ['add-money', 'am', 'выдать-деньги', 'выдатьденьги', 'аддмоней', 'монейадд'])
     async def addmoney(self, ctx, member: Union[discord.Member, str] = None, mode = None, value = None):
         usage_field = discord.EmbedField(
             name = 'Использование команды',
