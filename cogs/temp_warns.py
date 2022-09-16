@@ -36,7 +36,7 @@ class TempWarnsCog(commands.Cog):
         
 
         await ctx.natural(
-            title = f'Устные {member}'
+            title = f'Устные {member}',
             description = description
         )
 
