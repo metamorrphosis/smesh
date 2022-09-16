@@ -109,6 +109,8 @@ class StartTicketView(discord.ui.View):
         )
 
         ticket_channel = await ticket_category.create_text_channel(name = f'тикет-{ticket_id}', overwrites = ticket_overwrites)
+        await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
+        
         mention = await ticket_channel.send(self.mention_message)
         embticket = discord.Embed(
             title = f'Тикеты | Smesh',
@@ -118,7 +120,7 @@ class StartTicketView(discord.ui.View):
         embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1018512513047994368>] ────────**', inline = False)
         await mention.delete() 
         await ticket_channel.send(f'{interaction.user.mention}', embed = embticket, view = OpenedTicketView())
-        await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
+
         
         
 
