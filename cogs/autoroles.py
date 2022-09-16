@@ -10,7 +10,7 @@ class AutoRolesCog(commands.Cog):
         await ctx.channel.purge(limit = 200)
         for i in ctx.guild.emojis:
             await ctx.send(i)
-            break
+            await ctx.send(f'\{i}')
     
 def setup(bot):
     bot.add_cog(AutoRolesCog(bot))
