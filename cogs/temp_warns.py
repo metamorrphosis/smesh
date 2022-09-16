@@ -43,17 +43,17 @@ class TempWarnsCog(commands.Cog):
 
     @commands.command(aliases = ['устный'])
     async def temp_warn(self, ctx):
-        uroles = my_roles.Roles(interaction.guild)
+        uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
         check_roles = uroles.roles_check(
-            member = interaction.user,
+            member = ctx.author,
             roles_list = staff_roles
         )
 
         roles_mention = ', '.join(role.mention for role in staff_roles)
 
         if len(check_roles) == 0:
-            return await ctx.error(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
+            return await ctx.error(f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
 
 
 def setup(bot):
