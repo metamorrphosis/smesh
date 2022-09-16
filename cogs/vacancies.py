@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from discord.ext import commands
 from datetime import datetime, timezone
 
@@ -262,7 +263,9 @@ class VacanciesCog(commands.Cog):
         channel = ctx.guild.get_channel(1005221671432618045)
         webhook = await channel.webhooks()
         webhook = webhook[0]
+
         await webhook.send(embeds = embhelper, view = HelperView())
+        await asyncio.sleep(4)
         await webhook.send(embeds = embtg, view = TelegramView())
 
     @commands.Cog.listener()
