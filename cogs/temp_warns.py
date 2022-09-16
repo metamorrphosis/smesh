@@ -22,7 +22,7 @@ class TempWarnsCog(commands.Cog):
         member_temp_warn = await self.db.get_warn(member = member)
 
         if member_temp_warn is None:
-            description = '<:e_green_dot:1018821297481994280> Устные отсутсвуют'
+            description = 'Устные отсутсвуют'
         else:
             warn_author_id = member_temp_warn["author"]
             warn_author = ctx.guild.get_member(warn_author_id)
@@ -52,8 +52,8 @@ class TempWarnsCog(commands.Cog):
 
         roles_mention = ', '.join(role.mention for role in staff_roles)
 
-        if len(check_roles) == 0:
-            return await ctx.error(f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
+        
+        return await ctx.error(f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
 
 
 def setup(bot):
