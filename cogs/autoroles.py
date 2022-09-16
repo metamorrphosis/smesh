@@ -6,8 +6,12 @@ class AutoRolesCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.guild_only()
     async def emoji(self, ctx):
+        if ctx.guild.id != 1018511272196722760:
+            return
         await ctx.channel.purge(limit = 200)
+        
         for i in ctx.guild.emojis:
             await ctx.send(i)
             await ctx.send(f'\{i}')
