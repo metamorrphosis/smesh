@@ -1,8 +1,8 @@
 import config
 import discord
 from typing import Union
-from utils import temp_warns_db, my_roles, get_duration
-from utils.other import nc
+from utils import temp_warns_db, my_roles
+from utils.other import nc, get_duration
 from discord.ext import commands
 prf = config.cmd_prefix
 
