@@ -115,7 +115,7 @@ class TempWarnsCog(commands.Cog):
         elif warn_duration_type == 4:
             warn_duration *= 60 * 60 * 24
         
-        warn_duration = datetime.timestamp(datetime.now()) + warn_duration
+        warn_duration = int(datetime.timestamp(datetime.now()) + warn_duration)
         max_duration = datetime.timestamp(datetime.now()) + 1209602 
                     
         if warn_duration > max_duration:
@@ -124,7 +124,7 @@ class TempWarnsCog(commands.Cog):
         await self.db.insert_warn(
             author = ctx.author,
             member = member,
-            duration = int(warn_duration)
+            duration = warn_duration
         )
 
         await ctx.success(
