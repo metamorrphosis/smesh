@@ -157,7 +157,9 @@ class TempWarnsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.error(description = f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
         
-        if not(isinstance(member, discord.Member)) and ctx.message.reference is not None:
+        if isinstance(member, discord.Member):
+            pass
+        elif ctx.message.reference is not None:
             member = ctx.message.reference.resolved.author
         else:
             return await ctx.error(description = 'Участник не найден. Вы должны указать ник, упоминание или ID участника первым сообщением, либо ответить на сообщение того, кому нужно снять устный')
