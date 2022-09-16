@@ -22,15 +22,15 @@ class EconomyCog(commands.Cog):
             fields = [
                 discord.EmbedField(
                     name = 'Наличные', 
-                    value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["cash"]))}', 
+                    value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["cash"]))}'
                 ),
                 discord.EmbedField(
                     name = 'Банк', 
-                    value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["bank"]))}', 
+                    value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["bank"]))}'
                 ),
                 discord.EmbedField(
                     name = 'Всего', 
-                    value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["cash"] + member_bal["bank"]))}', 
+                    value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["cash"] + member_bal["bank"]))}'
                 )
             ]
         )
@@ -118,6 +118,8 @@ class EconomyCog(commands.Cog):
         await ctx.success(
             description = f'Баланс участника {member.mention} (`{member}`) обнулен. До обнуления у него всего было {nc(str(value_before))}<:vajno_2:1018512718585679882>'
         )
+
+    
     
 def setup(bot):
     bot.add_cog(EconomyCog(bot))
