@@ -41,7 +41,7 @@ class TempWarnsCog(commands.Cog):
         )
     
 
-    @commands.command(aliases = ['устный'])
+    @commands.command(aliases = ['устный', 'уй'])
     async def temp_warn(self, ctx, member: Union[discord.Member, str] = None, duration = None):
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
