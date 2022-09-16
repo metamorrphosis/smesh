@@ -22,7 +22,7 @@ class TempWarnsCog(commands.Cog):
         member_temp_warn = await self.db.get_warn(member = member)
 
         if member_temp_warn is None:
-            description = 'Устные отсутсвуют'
+            description = '<:e_green_dot:1018821297481994280> Устные отсутсвуют'
         else:
             warn_author_id = member_temp_warn["author"]
             warn_author = ctx.guild.get_member(warn_author_id)
@@ -36,7 +36,7 @@ class TempWarnsCog(commands.Cog):
         
 
         await ctx.natural(
-            title = f'<:e_green_dot:1018821297481994280>Устные {member}',
+            title = f'Устные {member}',
             description = description
         )
     
