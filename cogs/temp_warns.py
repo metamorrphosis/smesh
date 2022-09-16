@@ -1,7 +1,7 @@
 import config
 import discord
 from typing import Union
-from utils import temp_warns_db
+from utils import temp_warns_db, my_roles
 from utils.other import nc
 from discord.ext import commands
 prf = config.cmd_prefix
@@ -36,9 +36,24 @@ class TempWarnsCog(commands.Cog):
         
 
         await ctx.natural(
-            title = f'Устные {member}',
+            title = f'<:e_green_dot:1018821297481994280>Устные {member}',
             description = description
         )
+    
+
+    @commands.command(aliases = ['устный'])
+    async def temp_warn(self, ctx):
+        uroles = my_roles.Roles(interaction.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = interaction.user,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.error(f'Эта кнопка доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
 
 def setup(bot):

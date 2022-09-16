@@ -32,7 +32,7 @@ class MyContext(commands.Context):
     async def natural(self, *, title = None, description = None, fields = None):
         emberror = discord.Embed(
             title = title,
-            color = 0x03a8f4,
+            color = 0xbffed9,
             timestamp = datetime.now(),
             description = description,
             fields = fields
