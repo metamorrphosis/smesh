@@ -126,6 +126,10 @@ class TempWarnsCog(commands.Cog):
             duration = int(warn_duration)
         )
 
+        await ctx.success(
+            description = f'Участник {member.mention} (`{member}`) получил устное предупреждение до <t:{warn_duration}:f>'
+        )
+
             
 
 
