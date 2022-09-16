@@ -118,7 +118,7 @@ class EconomyCog(commands.Cog):
             member = member
         )
 
-        ctx.success(
+        await ctx.success(
             description = f'Баланс участника {member.mention} (`{member}`) обнулен. До обнуления у него всего было {nc(str(value_before))}<:vajno_2:1018512718585679882>'
         )
     
