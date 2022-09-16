@@ -14,6 +14,26 @@ class AutoRolesView(discord.ui.View):
     async def news_role_callback(self, button, interaction):
         result = await auto_role(interaction.user, interaction.guild.get_role(993099769843040286))
         await interaction.response.send_message(result, ephemeral = True)
+    
+
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:a_party:1018512458538815528>'), 
+        style = discord.ButtonStyle.gray, 
+        custom_id = "games_role_button"
+    )
+    async def games_role_callback(self, button, interaction):
+        result = await auto_role(interaction.user, interaction.guild.get_role(993099923711078491))
+        await interaction.response.send_message(result, ephemeral = True)
+    
+    
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:a_gift:1018512394391146597>'), 
+        style = discord.ButtonStyle.gray, 
+        custom_id = "giveaways_role_button"
+    )
+    async def giveaways_role_callback(self, button, interaction):
+        result = await auto_role(interaction.user, interaction.guild.get_role(993104348982820924))
+        await interaction.response.send_message(result, ephemeral = True)
 
 
 class AutoRolesCog(commands.Cog):
