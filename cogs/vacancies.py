@@ -204,7 +204,7 @@ class HelperView(discord.ui.View):
         super().__init__(timeout = None)
      
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_curator:1018512377634893874>'), 
+        emoji = discord.PartialEmoji.from_str('<:a_helper:1018512420282564628>'), 
         label = 'Заявка на помощника в дискорде', 
         style = discord.ButtonStyle.gray, 
         custom_id = "helper_modal"
@@ -218,7 +218,7 @@ class TelegramView(discord.ui.View):
         super().__init__(timeout = None)
      
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_moder:1018512445498720316>'), 
+        emoji = discord.PartialEmoji.from_str('<:a_telegram:1020336781650042942>'), 
         label = 'Заявка на модератора телеграмм', 
         style = discord.ButtonStyle.gray, 
         custom_id = "telegram_modal"
