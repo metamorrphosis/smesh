@@ -15,7 +15,7 @@ def nc(arg: str) -> str:
     return new_str[::-1]
 
 
-def get_duration(arg: str) -> str:
+def get_duration(number: str) -> str:
     if number.endswith('с'):
         return number[:-1], 1
     elif number.endswith('сек'):
