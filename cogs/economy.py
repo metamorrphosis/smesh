@@ -23,17 +23,14 @@ class EconomyCog(commands.Cog):
                 discord.EmbedField(
                     name = 'Наличные', 
                     value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["cash"]))}', 
-                    inline = True
                 ),
                 discord.EmbedField(
                     name = 'Банк', 
                     value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["bank"]))}', 
-                    inline = True
                 ),
                 discord.EmbedField(
                     name = 'Всего', 
                     value = f'<:vajno_2:1018512718585679882>{nc(str(member_bal["cash"] + member_bal["bank"]))}', 
-                    inline = True
                 )
             ]
         )
