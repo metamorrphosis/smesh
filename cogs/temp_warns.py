@@ -4,7 +4,7 @@ from typing import Union
 from datetime import datetime, timedelta
 from utils import temp_warns_db, my_roles
 from utils.other import nc, get_duration
-from discord.ext import commands
+from discord.ext import commands, tasks
 prf = config.cmd_prefix
 
 
@@ -13,6 +13,17 @@ class TempWarnsCog(commands.Cog):
         self.bot = bot
         self.db = temp_warns_db.TempWarnsDB()
     
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.temp_warns_loop.start()
+
+    @tasks.loop(seconds = 30)
+    async def temp_warns_loop(self):
+        async for i in self.db.get_warns():
+            if i["duration"] <  datetime.timestamp(datetime.now()):
+                await self.db.warns.delete_one({"_id": i["_id"]})
+    
+
     @commands.command(aliases = ['устные', 'уе'])
     async def temp_warns(self, ctx, member: Union[discord.Member, str] = None):
         member = member or ctx.author
@@ -131,6 +142,41 @@ class TempWarnsCog(commands.Cog):
             description = f'Участник {member.mention} (`{member}`) получил устное предупреждение до <t:{warn_duration}:f>'
         )
 
+
+    @commands.command(aliases = ['сустный', 'снятьустный', 'снять-устный'])
+    async def remove_temp_warn(self, ctx, member: Union[discord.Member, str] = None):
+        uroles = my_roles.Roles(ctx.guild)
+        staff_roles = uroles.get_all_staff_roles()
+        check_roles = uroles.roles_check(
+            member = ctx.author,
+            roles_list = staff_roles
+        )
+
+        roles_mention = ', '.join(role.mention for role in staff_roles)
+
+        if len(check_roles) == 0:
+            return await ctx.error(description = f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
+        
+        if isinstance(member, discord.Member) and ctx.message.reference is not None:
+            member = ctx.message.reference.resolved.author
+        else:
+            return await ctx.error(description = 'Участник не найден. Вы должны указать ник, упоминание или ID участника первым сообщением, либо ответить на сообщение того, кому нужно снять устный')
+        
+        if member.bot:
+            return await ctx.error(description = 'Нельзя снять устный боту')
+        
+        member_warn = await self.db.get_warn(member = member)
+
+        if member_warn is None:
+            return await ctx.error(description = 'У данного участника нету устного')
+
+        await self.db.remove_warn(
+            member = member
+        )
+
+        await ctx.success(
+            description = f'Устное предупреждение участника {member.mention} (`{member}`) снято'
+        )
             
 
 
