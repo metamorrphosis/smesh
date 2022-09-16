@@ -72,7 +72,7 @@ class TempWarnsCog(commands.Cog):
         if member.bot:
             return await ctx.error(description = 'Нельзя выдать устный боту')
         
-        if membr.top_role.position >= ctx.author.top_role.position:
+        if member.top_role.position >= ctx.author.top_role.position:
             return await ctx.error(description = 'Нельзя выдать мьют участнику, который находится на одной роли с вами, либо с ролью выше чем у Вас')
 
         member_warn = await self.db.get_warn(member = member)
@@ -106,6 +106,7 @@ class TempWarnsCog(commands.Cog):
                 description = 'Вы указали неверный формат времени. Он должен начинаться с цифры, а заканчиваться единицей измерения времени.',
                 fields = error_fields
             )
+
         elif warn_duration_type == 2:
             warn_duration *= 60
         elif warn_duration_type == 3:
