@@ -53,7 +53,7 @@ class TempWarnsCog(commands.Cog):
         roles_mention = ', '.join(role.mention for role in staff_roles)
 
         
-        return await ctx.error(f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
+        return await ctx.error(description = f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
 
 
 def setup(bot):
