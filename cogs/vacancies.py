@@ -235,7 +235,7 @@ class VacanciesCog(commands.Cog):
     
     @commands.command()
     @commands.guild_only()
-    @commands.has_guild_permissions( administrator = True)
+    @commands.has_guild_permissions( administrator = True )
     async def vcs(self, ctx):
         embhelper = [
             discord.Embed(
