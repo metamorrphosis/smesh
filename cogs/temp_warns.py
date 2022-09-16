@@ -12,7 +12,7 @@ class TempWarnsCog(commands.Cog):
         self.bot = bot
         self.db = temp_warns_db.TempWarnsDB()
     
-    @commands.command(aliases = ['устные'])
+    @commands.command(aliases = ['устные', 'уе'])
     async def temp_warns(self, ctx, member: Union[discord.Member, str] = None):
         member = member or ctx.author
 
