@@ -30,5 +30,5 @@ class TempWarnsDB:
     async def get_warn(self, *, member):
         return await self.warns.find_one({"_id": member.id})
     
-    async def get_warns(self):
+    def get_warns(self):
         return self.warns.find()
