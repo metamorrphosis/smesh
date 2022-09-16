@@ -114,8 +114,12 @@ class EconomyCog(commands.Cog):
         if not(isinstance(member, discord.Member)):
             return await ctx.error(description = 'Участник не найден')
 
+        value_before = await self.db.reset_money(
+            member = member
+        )
+
         ctx.success(
-            description = f'em'
+            description = f'Баланс участника {member.mention} (`{member}`) обнулен. До обнуления у него всего было {nc(str(value_before))}<:vajno_2:1018512718585679882>'
         )
     
 def setup(bot):
