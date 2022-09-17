@@ -389,7 +389,7 @@ class VacanciesCog(commands.Cog):
                 color = 0xbffed9
             ),
             discord.Embed(
-                title = '<:emoji_3:1015871727101816852>・Регистрация на турнир по Clash Royal',
+                title = '<:e_green_list:1018821075926253568>・Регистрация на турнир по Clash Royal',
                 description = '━────────────────━\n<:asm_green_dot:1018821297481994280>Здравствуйте! Мы хотим пригласить вас на мероприятие по игре Clash Royal. Смотреть бои может любой желающий, а для участия необходимо заполнить небольшую анкету.\n<:asm_white_dot:1018821114853601353>Все заявки просмотрят в ближайшее время.',
                 color = 0xbffed9
             )
@@ -402,7 +402,7 @@ class VacanciesCog(commands.Cog):
         webhook = webhook[0]
         
         await ctx.message.delete()
-        await webhook.send(embeds = embroyal)
+        await webhook.send(embeds = embroyal, view = RoyalView())
         
     
     @commands.Cog.listener()
