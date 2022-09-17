@@ -267,7 +267,15 @@ class VacanciesCog(commands.Cog):
         await webhook.send(embeds = embhelper, view = HelperView())
         await asyncio.sleep(4)
         await webhook.send(embeds = embtg, view = TelegramView())
-
+    
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_guild_permissions( administrator = True )
+    async def hookk(self, ctx):
+        chan = ctx.guild.get_channel(1004655452044398622)
+        hk = await chan.create_webhook(name = 'Smesh')
+        await ctx.message.reply(hk)
+    
     @commands.Cog.listener()
     async def on_ready(self):
         self.bot.add_view(HelperView())
