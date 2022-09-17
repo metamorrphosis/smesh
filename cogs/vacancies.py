@@ -4,6 +4,104 @@ from discord.ext import commands
 from datetime import datetime, timezone
 
 
+class RoyalModal(discord.ui.Modal):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(
+            discord.ui.InputText(
+                label="Ваш возраст и имя",
+                placeholder="Пример: 15 лет, Петя",
+                min_length=4,
+                max_length=100,
+                style=discord.InputTextStyle.short,
+                required=True,
+            ),
+            discord.ui.InputText(
+                label="Ваш часовой пояс",
+                placeholder="Пример: МСК",
+                min_length=1,
+                max_length=100,
+                style=discord.InputTextStyle.short,
+                required=True,
+            ),
+            discord.ui.InputText(
+                label="Ваш ник в игре",
+                placeholder="Пример: tamada_loh",
+                min_length=1,
+                max_length=100,
+                style=discord.InputTextStyle.short,
+                required=True,
+            ),
+            discord.ui.InputText(
+                label="Ваше количество трофеев в игре",
+                placeholder="Пример: 5,500",
+                min_length=1,
+                max_length=100,
+                style=discord.InputTextStyle.short,
+                required=True,
+            ),
+            discord.ui.InputText(
+                label="Почему Вы хотите участвовать в этом мероприяти?",
+                placeholder="Пример: Просто так, повеселиться",
+                min_length= 3,
+                max_length=200,
+                style=discord.InputTextStyle.long,
+                required=True,
+            ),
+            *args,
+            **kwargs,
+        )
+
+    async def callback(self, interaction):
+        timereg = int(interaction.user.created_at.replace(tzinfo=timezone.utc).timestamp())
+        timejoin = int(interaction.user.joined_at.replace(tzinfo=timezone.utc).timestamp())
+
+        embed = discord.Embed(
+            title="Новая анкета на турнир по Clash Royale",
+            fields=[
+                discord.EmbedField(
+                    name = "Автор анкеты", 
+                    value = f"{interaction.user.mention} | {interaction.user} | {interaction.user.id}", 
+                    inline = False
+                ),
+                discord.EmbedField(
+                    name = "Информация по автору анкеты", 
+                    value = f'Дата регистрации аккаунта: <t:{timereg}>\nДата присоединения на сервер: <t:{timejoin}>', 
+                    inline = False
+                ),
+                discord.EmbedField(
+                    name = self.children[0].label, 
+                    value = self.children[0].value, 
+                    inline = False
+                ),
+                discord.EmbedField(
+                    name = self.children[1].label, 
+                    value = self.children[1].value, 
+                    inline = False
+                ),
+                discord.EmbedField(
+                    name = self.children[2].label, 
+                    value = self.children[2].value, 
+                    inline = False
+                ),
+                discord.EmbedField(
+                    name = self.children[3].label, 
+                    value = self.children[3].value, 
+                    inline = False
+                ),
+                discord.EmbedField(
+                    name = self.children[4].label, 
+                    value = self.children[4].value, 
+                    inline = False
+                ),
+            ],
+            color = 0x2e3133,
+            timestamp = datetime.now()
+        )
+        channel = interaction.guild.get_channel(1007118729697562715)
+        await channel.send(embed = embed)
+        await interaction.response.send_message('Ваша заявка успешно отправлена администрации', ephemeral = True)
+
+
 class HelperModal(discord.ui.Modal):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(
@@ -228,10 +326,23 @@ class TelegramView(discord.ui.View):
         await interaction.response.send_modal(TelegramModal(title = 'Заявка на роль модератора в телеграмм'))
 
 
-class VacanciesCog(commands.Cog):    
+class RoyalView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout = None)
+     
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:a_clash_royal:1020652862155522048>'), 
+        label = 'Заявка на участие', 
+        style = discord.ButtonStyle.gray, 
+        custom_id = "royal_modal"
+    )
+    async def helper(self, button, interaction):
+        await interaction.response.send_modal(RoyalModal(title = 'Заявка на участие в турнире по Clash Royal'))
+
+
+class VacanciesCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.hook_url = 'https://discord.com/api/webhooks/1018488382059462726/1X5vAr1FqtsgqNs2KgKUTDKeTS46_99CVapek6R_yyHeerwYU8U_cHf8tveRqrWm2Fzi'
     
     @commands.command()
     @commands.guild_only()
@@ -268,18 +379,37 @@ class VacanciesCog(commands.Cog):
         await asyncio.sleep(4)
         await webhook.send(embeds = embtg, view = TelegramView())
     
+    
     @commands.command()
     @commands.guild_only()
     @commands.has_guild_permissions( administrator = True )
-    async def hookk(self, ctx):
+    async def royal(self, ctx):
+        embroyal = [
+            discord.Embed(
+                color = 0xbffed9
+            ),
+            discord.Embed(
+                title = '<:emoji_3:1015871727101816852>・Регистрация на турнир по Clash Royal',
+                description = '━────────────────━\n<:asm_green_dot:1018821297481994280>Здравствуйте! Мы хотим пригласить вас на мероприятие по игре Clash Royal. Смотреть бои может любой желающий, а для участия необходимо заполнить небольшую анкету.\n<:asm_white_dot:1018821114853601353>Все заявки просмотрят в ближайшее время.',
+                color = 0xbffed9
+            )
+        ]
+        embroyal[0].set_image(url = 'https://media.discordapp.net/attachments/1017458641537859604/1020689587305185443/1662919160822.png')
+        embroyal[1].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
+        
         chan = ctx.guild.get_channel(1004655452044398622)
-        hk = await chan.create_webhook(name = 'Smesh')
-        await ctx.message.reply(hk.url)
+        webhook = await chan.webhooks()
+        webhook = webhook[0]
+        
+        await ctx.message.delete()
+        await webhook.send(embeds = embroyal)
+        
     
     @commands.Cog.listener()
     async def on_ready(self):
         self.bot.add_view(HelperView())
         self.bot.add_view(TelegramView())
+        self.bot.add_view(RoyalView())
 
 
 def setup(bot):
