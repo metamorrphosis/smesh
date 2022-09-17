@@ -274,7 +274,7 @@ class VacanciesCog(commands.Cog):
     async def hookk(self, ctx):
         chan = ctx.guild.get_channel(1004655452044398622)
         hk = await chan.create_webhook(name = 'Smesh')
-        await ctx.message.reply(hk)
+        await ctx.message.reply(hk.url)
     
     @commands.Cog.listener()
     async def on_ready(self):
