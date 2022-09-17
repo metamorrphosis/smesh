@@ -40,7 +40,7 @@ class RoyalModal(discord.ui.Modal):
                 required=True,
             ),
             discord.ui.InputText(
-                label="Почему Вы хотите участвовать в этом мероприяти?",
+                label="Почему хотите участвовать в этом мероприяти?",
                 placeholder="Пример: Просто так, повеселиться",
                 min_length= 3,
                 max_length=200,
