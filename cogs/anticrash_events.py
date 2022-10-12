@@ -18,13 +18,13 @@ class AnticrashEventsCog(commands.Cog):
                 member_add = logs[0].user
 
                 try:
-                    member_add.ban(reason = 'Добавление не верефицированого бота')
-                    member.ban(reason = 'Не верифицированый бот')
+                    await member_add.ban(reason = 'Добавление не верефицированого бота')
+                    await member.ban(reason = 'Не верифицированый бот')
                 except Exception as e:
                     print(e)
                 
                 channel = member.guild.get_channel(1017458641537859604)
-                await channel.send(f'**Попытка краша**\nТолько что {member_add.mention} (`{member_add}` | `{member_add.id}`) пытался добавить бота {member.mention} (`{member} | `{member.id}`) на сервер. Оба участника были забанены (наверное)')
+                await channel.send(f'**Попытка краша**\nТолько что {member_add.mention} (`{member_add}` | `{member_add.id}`) пытался добавить бота {member.mention} (`{member}` | `{member.id}`) на сервер. Оба участника были забанены (наверное)')
 
 
 def setup(bot):
