@@ -4,7 +4,7 @@ import asyncio
 import config
 import discord
 
-class GiveawaysDb:
+class GiveawaysDB:
     def __init__(self):
         self.cluster = AsyncIOMotorClient(config.mongodb_link)
         self.giveaways = self.cluster.giveaways.giveaways_list
