@@ -26,7 +26,7 @@ class GiveawaysCog(commands.Cog):
         self.bot = bot
         self.db = giveaways_db.GiveawaysDB()    
     
-    @command.slash_command(
+    @commands.slash_command(
         guild_ids = [837941760193724426],
         name = 'giveaway', 
         description = 'Создаёт новый розыгрыш (доступно только администрации)'
