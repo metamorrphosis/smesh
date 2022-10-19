@@ -359,7 +359,7 @@ class VacanciesCog(commands.Cog):
         webhook = await channel.webhooks()
         webhook = webhook[0]
 
-        await webhook.send(embed = embed, view = VacancyView())
+        await webhook.send(embeds = embeds, view = VacancyView())
     
 
         
