@@ -310,14 +310,6 @@ class VacancyView(discord.ui.View):
     )
     async def helper(self, button, interaction):
         await interaction.response.send_modal(HelperModal(title = 'Заявка на роль помощника в дискорд'))
-
-    @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:a_telegram:1020336781650042942>'), 
-        style = discord.ButtonStyle.gray, 
-        custom_id = "telegram_modal"
-    )
-    async def telegram(self, button, interaction):
-        await interaction.response.send_modal(TelegramModal(title = 'Заявка на роль модератора в телеграмм'))
     
     @discord.ui.button(
         emoji = discord.PartialEmoji.from_str('<:a_party:1018512458538815528>'), 
@@ -327,6 +319,13 @@ class VacancyView(discord.ui.View):
     async def eventer(self, button, interaction):
         await interaction.response.send_modal(EventerModal(title = 'Заявка на роль ивент мейкера'))
 
+    @discord.ui.button(
+        emoji = discord.PartialEmoji.from_str('<:a_telegram:1020336781650042942>'), 
+        style = discord.ButtonStyle.gray, 
+        custom_id = "telegram_modal"
+    )
+    async def telegram(self, button, interaction):
+        await interaction.response.send_modal(TelegramModal(title = 'Заявка на роль модератора в телеграмм'))
 
 class VacanciesCog(commands.Cog):
     def __init__(self, bot):
