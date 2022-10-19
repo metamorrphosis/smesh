@@ -316,7 +316,7 @@ class VacancyView(discord.ui.View):
         style = discord.ButtonStyle.gray, 
         custom_id = "telegram_modal"
     )
-    async def helper(self, button, interaction):
+    async def telegram(self, button, interaction):
         await interaction.response.send_modal(TelegramModal(title = 'Заявка на роль модератора в телеграмм'))
     
     @discord.ui.button(
@@ -324,8 +324,8 @@ class VacancyView(discord.ui.View):
         style = discord.ButtonStyle.gray, 
         custom_id = "eventer_modal"
     )
-    async def helper(self, button, interaction):
-        await interaction.response.send_modal(TelegramModal(title = 'Заявка на роль ивент мейкера'))
+    async def eventer(self, button, interaction):
+        await interaction.response.send_modal(EventerModal(title = 'Заявка на роль ивент мейкера'))
 
 
 class VacanciesCog(commands.Cog):
