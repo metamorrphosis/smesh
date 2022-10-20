@@ -78,8 +78,8 @@ class StartTicketView(discord.ui.View):
         super().__init__(timeout = None)
     
     @discord.ui.button(
-        emoji = discord.PartialEmoji.from_str('<:asm_stormy_curator:1018512377634893874>'), 
-        style = discord.ButtonStyle.green,
+        emoji = discord.PartialEmoji.from_str('<:a_to_accept:1020623049231441990>'), 
+        style = discord.ButtonStyle.gray,
         custom_id = "open_ticket",
         label = 'Открыть тикет'
     )
@@ -142,6 +142,7 @@ class TicketsCog(commands.Cog):
             description = 'Для открытия тикета используйте кнопку ниже',
             color = 0xbffed9
         )
+        embticket.set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
         await ctx.message.delete()
         await ctx.send(embed = embticket, view = StartTicketView())
     
@@ -275,32 +276,6 @@ class TicketsCog(commands.Cog):
         await ctx.send_response(f'{member.mention} (`{member}`) успешно удален из тикета')
         
 
-
-
-    @commands.command(aliases = ['с', 's', 'статистика'])
-    @commands.guild_only()
-    @commands.is_owner()
-    async def tickets_stat(self, ctx, member: discord.Member = None):
-        uroles = my_roles.Roles(ctx.guild)
-        staff_roles = uroles.get_all_staff_roles()
-        check_roles = uroles.roles_check(
-            member = ctx.author,
-            roles_list = staff_roles
-        )
-
-        roles_mention = ', '.join(role.mention for role in staff_roles)
-
-        if len(check_roles) == 0:
-            return await ctx.error(description = f'Эта команда доступна только для следующих ролей:\n {roles_mention}')
-
-        if member is None:
-            member = ctx.author
-
-        ticket_stat = self.db.get_claimed_data(member)
-
-        embed = discord.Embed(
-            title = 'Статистика'
-        )
     
     @commands.Cog.listener()
     async def on_ready(self):
