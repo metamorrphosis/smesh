@@ -221,14 +221,6 @@ class EventerModal(discord.ui.Modal):
                 required=True,
             ),
             discord.ui.InputText(
-                label="Ваш уровень на сервере",
-                placeholder="Пример: 15",
-                min_length=2,
-                max_length=100,
-                style=discord.InputTextStyle.short,
-                required=True,
-            ),
-            discord.ui.InputText(
                 label="Был ли у Вас опыт в подобной сфере",
                 placeholder="Пример: Да был, на сервере Shampanov",
                 min_length= 2,
@@ -284,12 +276,7 @@ class EventerModal(discord.ui.Modal):
                     name = self.children[3].label, 
                     value = self.children[3].value, 
                     inline = False
-                ),
-                discord.EmbedField(
-                    name = self.children[4].label, 
-                    value = self.children[4].value, 
-                    inline = False
-                ),
+                )
             ],
             color = 0x2e3133,
             timestamp = datetime.now()
