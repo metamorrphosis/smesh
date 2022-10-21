@@ -1,5 +1,6 @@
 import discord
 from discord import option
+import config
 from utils import tickets_db, my_roles
 from datetime import datetime
 from discord.ext import commands
@@ -112,13 +113,13 @@ class StartTicketView(discord.ui.View):
         
         mention = await ticket_channel.send(self.mention_message)
         embticket = discord.Embed(
-            title = f'Тикеты | Smesh',
-            description = f'**──────── [<:asm_stormy_staff:1018512513047994368>] ────────**\n・Здравствуйте! Вы попали в свой тикет. Модерация поможет вам в кротчайшие сроки. Пока что можете написать цель создания тикета.',
+            title = f'<:a_notification:1020307597670223922> Открытый тикет',
+            description = f'<:e_white_dot:1018821114853601353>Здравствуйте! Вы попали в свой тикет. Модерация поможет вам в кротчайшие сроки. Пока что можете написать цель создания тикета.\n<:c_level_10:1018512555280453712> Примечание:\n<:e_green_dot:1018821297481994280>За попытки обмана администрации выдаётся предупреждение',
             color = 0xbffed9
         )
-        embticket.add_field(name = '**Примечания**', value = '・За попытки обмана администрации выдаётся предупреждение;\n\n・За бессмысленный тикет также выдаётся предупреждение\n**──────── [<:asm_stormy_staff:1018512513047994368>] ────────**', inline = False)
+        embticket.set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
         await mention.delete() 
-        await ticket_channel.send(f'{interaction.user.mention}', embed = embticket, view = OpenedTicketView())
+        await ticket_channel.send(f'{interaction.user.mention} (`{interaction.user}`)', embed = embticket, view = OpenedTicketView())
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
 
         
@@ -160,7 +161,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         await self.db.delete_ticket(
@@ -185,7 +186,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         ticket_id = self.db.get_ticket_id(ctx.channel)
@@ -241,7 +242,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
         await ctx.channel.set_permissions(member, read_messages = True, send_messages = True, attach_files = True)
@@ -269,7 +270,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
         await ctx.channel.set_permissions(member, read_messages = False, send_messages = False, attach_files = False)
@@ -279,7 +280,7 @@ class TicketsCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.add_view(StartTicketView(), message_id = 1017472320048222250)
+        self.bot.add_view(StartTicketView())
         self.bot.add_view(OpenedTicketView())
     
 
