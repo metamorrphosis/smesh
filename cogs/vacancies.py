@@ -98,7 +98,7 @@ class HelperModal(discord.ui.Modal):
             color = 0x2e3133,
             timestamp = datetime.now()
         )
-        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
+        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
         await channel.send(embed = embed)
         await interaction.response.send_message('Ваша заявка успешно отправлена администрации', ephemeral = True)
 
@@ -196,7 +196,7 @@ class TelegramModal(discord.ui.Modal):
             color = 0x2e3133,
             timestamp = datetime.now()
         )
-        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
+        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
         await channel.send(embed = embed)
         await interaction.response.send_message('Ваша заявка успешно отправлена администрации', ephemeral = True)
 
