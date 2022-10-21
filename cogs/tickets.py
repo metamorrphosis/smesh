@@ -91,7 +91,7 @@ class StartTicketView(discord.ui.View):
             if i["author"] == interaction.user.id:
                 return await interaction.response.send_message('Нельзя открыть более 1 тикета за раз', ephemeral = True)
         
-        ticket_category = interaction.guild.get_channel(1008407518420148224)
+        ticket_category = interaction.guild.get_channel(config.tickets_category)
 
         ticket_overwrites = {
             interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False),
@@ -161,7 +161,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
+        if ctx.channel.category.id != config.tickets_category or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         await self.db.delete_ticket(
@@ -186,7 +186,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
+        if ctx.channel.category.id != config.tickets_category or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         ticket_id = self.db.get_ticket_id(ctx.channel)
@@ -242,7 +242,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
+        if ctx.channel.category.id != config.tickets_category or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
         await ctx.channel.set_permissions(member, read_messages = True, send_messages = True, attach_files = True)
@@ -270,7 +270,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != config.tickets_channel or ctx.channel.id == config.tickets_channel:
+        if ctx.channel.category.id != config.tickets_category or ctx.channel.id == config.tickets_channel:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
         await ctx.channel.set_permissions(member, read_messages = False, send_messages = False, attach_files = False)
