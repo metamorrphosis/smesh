@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import config
 from utils.other import auto_role
 
 class AutoRolesView(discord.ui.View):
@@ -55,7 +56,7 @@ class AutoRolesCog(commands.Cog):
         embroles[0].set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
 
         await ctx.message.delete()
-        channel = ctx.guild.get_channel(1004655381806600222)
+        channel = ctx.guild.get_channel(config.autoroles_channel)
         webhook = await channel.webhooks()
         webhook = webhook[0]
 
