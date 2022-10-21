@@ -97,7 +97,7 @@ class HelperModal(discord.ui.Modal):
             color = 0x2e3133,
             timestamp = datetime.now()
         )
-        channel = interaction.guild.get_channel(1007118729697562715)
+        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
         await channel.send(embed = embed)
         await interaction.response.send_message('Ваша заявка успешно отправлена администрации', ephemeral = True)
 
@@ -195,7 +195,7 @@ class TelegramModal(discord.ui.Modal):
             color = 0x2e3133,
             timestamp = datetime.now()
         )
-        channel = interaction.guild.get_channel(1007118729697562715)
+        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
         await channel.send(embed = embed)
         await interaction.response.send_message('Ваша заявка успешно отправлена администрации', ephemeral = True)
 
@@ -281,7 +281,7 @@ class EventerModal(discord.ui.Modal):
             color = 0x2e3133,
             timestamp = datetime.now()
         )
-        channel = interaction.guild.get_channel(1007118729697562715)
+        channel = interaction.guild.get_channel(config.vacancies_answers_channel)
         await channel.send(embed = embed)
         await interaction.response.send_message('Ваша заявка успешно отправлена администрации', ephemeral = True)
 
@@ -341,7 +341,7 @@ class VacanciesCog(commands.Cog):
         embeds[0].set_image(url = 'https://media.discordapp.net/attachments/1006991678994919464/1032339098985300140/20221019_003819.png?width=1440&height=432')
         
         await ctx.message.delete()
-        channel = ctx.guild.get_channel(1005221671432618045)
+        channel = ctx.guild.get_channel(config.vacancies_channel)
         webhook = await channel.webhooks()
         webhook = webhook[0]
 
