@@ -160,7 +160,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         await self.db.delete_ticket(
@@ -185,7 +185,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
 
         ticket_id = self.db.get_ticket_id(ctx.channel)
@@ -241,7 +241,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
         await ctx.channel.set_permissions(member, read_messages = True, send_messages = True, attach_files = True)
@@ -269,7 +269,7 @@ class TicketsCog(commands.Cog):
         if len(check_roles) == 0:
             return await ctx.send_response(f'Эта команда доступна только для следующих ролей:\n {roles_mention}', ephemeral = True)
 
-        if ctx.channel.category.id != 1004839366763495464 or ctx.channel.id == 1004832237872762980:
+        if ctx.channel.category.id != 1008407518420148224 or ctx.channel.id == 1004832237872762980:
             return await ctx.send_response('Эта команда доступна только в категории тикетов', ephemeral = True)
         
         await ctx.channel.set_permissions(member, read_messages = False, send_messages = False, attach_files = False)
