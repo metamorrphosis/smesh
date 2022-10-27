@@ -122,9 +122,6 @@ class StartTicketView(discord.ui.View):
         await ticket_channel.send(f'{interaction.user.mention} (`{interaction.user}`)', embed = embticket, view = OpenedTicketView())
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
 
-        
-        
-
 
 
 class TicketsCog(commands.Cog):
@@ -226,9 +223,15 @@ class TicketsCog(commands.Cog):
         description = 'Пользователь, которого необходимо добавить в тикет',
         input_type = discord.Member,
         required = True
-        
     )
-    async def slash_ticket_add(self, ctx, member: discord.Member):
+    async def slash_ticket_add(self, ctx, 
+        member: discord.Option(
+            name = 'Пользователь',
+            description = 'Пользователь, которого необходимо добавить в тикет',
+            input_type = discord.Member,
+            required = True
+        )
+    ):
 
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
@@ -253,10 +256,16 @@ class TicketsCog(commands.Cog):
         name = 'Пользователь',
         description = 'Пользователь, которого необходимо удалить из тикета',
         input_type = discord.Member,
-        required = True
-        
+        required = True   
     )
-    async def slash_ticket_remove(self, ctx, member: discord.Member):
+    async def slash_ticket_remove(self, ctx, 
+        member: discord.Option(
+            name = 'Пользователь',
+            description = 'Пользователь, которого необходимо удалить из тикета',
+            input_type = discord.Member,
+            required = True
+        )
+    ):
 
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
@@ -280,7 +289,7 @@ class TicketsCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.add_view(StartTicketView())
+        self.bot.add_view(StartTicketView(), message_id = 1032738056182181889)
         self.bot.add_view(OpenedTicketView())
     
 
