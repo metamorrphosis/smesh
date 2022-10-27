@@ -4,7 +4,7 @@ from discord import option
 from discord.ext import commands
 
 
-class SuggestsionsCog(commands.Cog):
+class SuggestionsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
