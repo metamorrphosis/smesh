@@ -226,7 +226,7 @@ class TicketsCog(commands.Cog):
     )
     async def slash_ticket_add(self, ctx, 
         member: discord.Option(
-            name = 'Пользователь',
+            name = 'пользователь',
             description = 'Пользователь, которого необходимо добавить в тикет',
             input_type = discord.Member,
             required = True
@@ -260,7 +260,7 @@ class TicketsCog(commands.Cog):
     )
     async def slash_ticket_remove(self, ctx, 
         member: discord.Option(
-            name = 'Пользователь',
+            name = 'пользователь',
             description = 'Пользователь, которого необходимо удалить из тикета',
             input_type = discord.Member,
             required = True
