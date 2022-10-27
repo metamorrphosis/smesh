@@ -37,7 +37,7 @@ class SuggestsionsCog(commands.Cog):
             ]
         )
         suggestion_embed.set_image(url = 'https://cdn.discordapp.com/attachments/1017458641537859604/1018492145335816192/SAVE_20220710_205848.jpg')
-        await suggestion_channel.send(embed = suggestion_embed)
+        suggestion_message = await suggestion_channel.send(embed = suggestion_embed)
         await suggestion_message.add_reaction('👍')
         await suggestion_message.add_reaction('👎')
         await ctx.send_response('Ваш заказ успешно отправлен в <#1032609206764847105>', ephemeral = True)
