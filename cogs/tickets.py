@@ -1,5 +1,5 @@
 import discord
-from discord import option
+from discord.commands import option
 import config
 from utils import tickets_db, my_roles
 from datetime import datetime
@@ -122,6 +122,9 @@ class StartTicketView(discord.ui.View):
         await ticket_channel.send(f'{interaction.user.mention} (`{interaction.user}`)', embed = embticket, view = OpenedTicketView())
         await interaction.response.send_message(f'Тикет успешно создан — {ticket_channel.mention}', ephemeral = True)
 
+        
+        
+
 
 
 class TicketsCog(commands.Cog):
@@ -219,18 +222,13 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'add', description = 'Добавляет пользователя в тикет')
     @option(
-        name = 'Пользователь',
+        name = 'пользователь',
         description = 'Пользователь, которого необходимо добавить в тикет',
         input_type = discord.Member,
         required = True
+        
     )
-    async def slash_ticket_add(self, ctx, 
-        member: discord.Option(
-            name = 'пользователь',
-            description = 'Пользователь, которого необходимо добавить в тикет',
-            required = True
-        )
-    ):
+    async def slash_ticket_add(self, ctx, member: discord.Member):
 
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
@@ -252,18 +250,13 @@ class TicketsCog(commands.Cog):
     
     @slash_group.command(name = 'remove', description = 'Удаляет пользователя из тикета')
     @option(
-        name = 'Пользователь',
+        name = 'пользователь',
         description = 'Пользователь, которого необходимо удалить из тикета',
         input_type = discord.Member,
-        required = True   
+        required = True
+        
     )
-    async def slash_ticket_remove(self, ctx, 
-        member: discord.Option(
-            name = 'пользователь',
-            description = 'Пользователь, которого необходимо удалить из тикета',
-            required = True
-        )
-    ):
+    async def slash_ticket_remove(self, ctx, member: discord.Member):
 
         uroles = my_roles.Roles(ctx.guild)
         staff_roles = uroles.get_all_staff_roles()
