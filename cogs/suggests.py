@@ -30,9 +30,8 @@ class SuggestionsCog(commands.Cog):
     ):
         suggestion_channel = ctx.guild.get_channel(1032609206764847105)
         suggestion_embed = discord.Embed(
-            title = '<:a_news:1018512472761708604> Новый заказ ивента',
+            title = 'Новый заказ',
             color = 0xbffed9,
-            timestamp = datetime.now(),
             fields = [
                 discord.EmbedField(
                     name = 'Автор заказа',
