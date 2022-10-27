@@ -15,14 +15,14 @@ class SuggestionsCog(commands.Cog):
         guild_only = True
     )
     @option(
-        name = 'Ивент',
+        name = 'ивент',
         description = 'Ивент, который вы хотите заказать',
         input_type = str,
         required = True
     )
     async def suggestion_slash_command(self, ctx, 
         _suggestion: discord.Option(
-                                                        name = 'Ивент', 
+                                                        name = 'ивент', 
                                                         required = True, 
                                                         input_type = str, 
                                                         description = 'Ивент, который вы хотите заказать')
