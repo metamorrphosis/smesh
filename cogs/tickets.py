@@ -228,7 +228,6 @@ class TicketsCog(commands.Cog):
         member: discord.Option(
             name = 'пользователь',
             description = 'Пользователь, которого необходимо добавить в тикет',
-            input_type = discord.Member,
             required = True
         )
     ):
@@ -262,7 +261,6 @@ class TicketsCog(commands.Cog):
         member: discord.Option(
             name = 'пользователь',
             description = 'Пользователь, которого необходимо удалить из тикета',
-            input_type = discord.Member,
             required = True
         )
     ):
