@@ -22,10 +22,11 @@ class SuggestionsCog(commands.Cog):
     )
     async def suggestion_slash_command(self, ctx, 
         _suggestion: discord.Option(
-                                                        name = 'ивент', 
-                                                        required = True, 
-                                                        input_type = str, 
-                                                        description = 'Ивент, который вы хотите заказать')
+            name = 'ивент', 
+            required = True, 
+            input_type = str, 
+            description = 'Ивент, который вы хотите заказать'
+        )
     ):
         suggestion_channel = ctx.guild.get_channel(1032609206764847105)
         suggestion_embed = discord.Embed(
