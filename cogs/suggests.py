@@ -11,6 +11,7 @@ class SuggestionsCog(commands.Cog):
     @discord.slash_command(
         name = 'suggestion', 
         description = 'Отправляет ваш заказ ивента в #﹑🐔﹒заказы',
+        guild_ids = [837941760193724426],
         guild_only = True
     )
     @option(
