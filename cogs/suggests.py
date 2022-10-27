@@ -20,7 +20,13 @@ class SuggestionsCog(commands.Cog):
         input_type = str,
         required = True
     )
-    async def suggestion_slash_command(self, ctx, _suggestion: str):
+    async def suggestion_slash_command(self, ctx, 
+        _suggestion: discord.Option(
+                                                        name = 'Ивент', 
+                                                        required = True, 
+                                                        input_type = str, 
+                                                        description = 'Ивент, который вы хотите заказать')
+    ):
         suggestion_channel = ctx.guild.get_channel(1032609206764847105)
         suggestion_embed = discord.Embed(
             title = '<:a_news:1018512472761708604> Новый заказ ивента',
