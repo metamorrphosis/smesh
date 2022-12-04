@@ -1,7 +1,7 @@
 # ————— MAIN —————
-token_main: str = "MTAxNTk4MzAwNjU0NjE0OTQyNw.GunmkN.6tvHYcmmMfMeSt8afqLO7tSL3Gn72cairEtzHM"
+token_main: str = "иди нахуй"
 cmd_prefix: str =  "s."
-mongodb_link: str = "mongodb+srv://bebroid:G4OkpALTJyAe2rlG@smeshcluster.hmfuskg.mongodb.net/?retryWrites=true&w=majority"
+mongodb_link: str = "иди нахуй"
 
 # ————— CHANNELS —————
 tickets_category: int = 1008407518420148224
